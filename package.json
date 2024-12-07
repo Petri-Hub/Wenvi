@@ -1,0 +1,9 @@
+{
+  "name": "wenvi",
+  "version": "1.0.0",
+  "description": "A environment management cli for dealing with .env in whitelabel apps",
+  "main": "index.js",
+  "author": "Fernando Petri",
+  "license": "MIT",
+  "private": false
+}
