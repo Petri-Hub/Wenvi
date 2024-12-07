@@ -1,0 +1,42 @@
+name: Publish to NPM
+
+on:
+  push:
+    branches:
+      - production
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+
+      # Checking out code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Installing Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+          registry-url: 'https://registry.npmjs.org/'
+
+      # Installing dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Building Typescript
+      - name: Build Typescript
+        run: npm run build
+
+      # Authenticating with NPM
+      - name: Authenticate with NPM
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_PUBLISH_TOKEN }}" > ~/.npmrc
+
+      # Publishing to NPM
+      - name: Publish package
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
+    
