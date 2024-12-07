@@ -5,5 +5,8 @@
   "main": "index.js",
   "author": "Fernando Petri",
   "license": "MIT",
+  "bin": {
+    "wenvi": "./index.js"
+  },
   "private": false
 }
