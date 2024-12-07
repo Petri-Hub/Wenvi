@@ -6,7 +6,8 @@
   "author": "Fernando Petri",
   "license": "MIT",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
   },
   "bin": {
     "wenvi": "./dist/index.js"
