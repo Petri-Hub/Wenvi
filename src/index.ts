@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-import { register } from "module";
 import { CommandRegistry } from "./CommandRegistry"
 import { ListCommand } from "./commands/ListCommand";
 import { LocalEnvironmentRepository } from "./resources/LocalEnvironmentRepository";

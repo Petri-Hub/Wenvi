@@ -1,8 +1,8 @@
-import { Command } from "../interfaces/Command";
-import { EnvironmentRepository } from "../interfaces/EnvironmentRepository";
+import { ICommand } from "../interfaces/ICommand";
+import { IEnvironmentRepository } from "../interfaces/IEnvironmentRepository";
 
-export class ListCommand implements Command {
-    constructor(private repository: EnvironmentRepository) { }
+export class ListCommand implements ICommand {
+    constructor(private repository: IEnvironmentRepository) { }
 
     public async execute(): Promise<void> {
         console.log(await this.repository.list())

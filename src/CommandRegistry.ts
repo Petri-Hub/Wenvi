@@ -1,13 +1,13 @@
-import { Command } from "./interfaces/Command";
+import { ICommand } from "./interfaces/ICommand";
 
 export class CommandRegistry {
-    private commands = new Map<string, Command>();
+    private commands = new Map<string, ICommand>();
 
-    public set(name: string, command: Command): void {
+    public set(name: string, command: ICommand): void {
         this.commands.set(name, command);
     }
 
-    public get(name: string): Command | null {
+    public get(name: string): ICommand | null {
         return this.commands.get(name) ?? null;
     }
 }

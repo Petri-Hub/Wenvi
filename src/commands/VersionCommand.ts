@@ -1,8 +1,8 @@
-import { Command } from "../interfaces/Command";
+import { ICommand } from "../interfaces/ICommand";
 import * as fs from 'fs';
 import * as path from 'path';
 
-export class VersionCommand implements Command {
+export class VersionCommand implements ICommand {
     public async execute(): Promise<void> {
         const packageJsonPath = path.resolve(__dirname, '../../package.json');
         const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));

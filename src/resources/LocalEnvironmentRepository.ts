@@ -1,9 +1,9 @@
 import { EnvironmentFileListingError } from "../errors/EnvironmentFileListingError";
 import { EnvironmentFileRetrievalError } from "../errors/EnvironmentFileRetrievalError";
-import { EnvironmentRepository } from "../interfaces/EnvironmentRepository";
+import { IEnvironmentRepository } from "../interfaces/IEnvironmentRepository";
 import { EnvironmentFile } from "../types/EnvironmentFile";
 
-export class LocalEnvironmentRepository implements EnvironmentRepository{
+export class LocalEnvironmentRepository implements IEnvironmentRepository{
     public async get(subject: string, environment: string): Promise<EnvironmentFile | null> {
         try{
             return {
