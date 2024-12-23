@@ -2,14 +2,17 @@ import { EnvironmentFileListingError } from "../errors/EnvironmentFileListingErr
 import { EnvironmentFileRetrievalError } from "../errors/EnvironmentFileRetrievalError";
 import { IEnvironmentRepository } from "../interfaces/IEnvironmentRepository";
 import { EnvironmentFile } from "../types/EnvironmentFile";
+import fs from 'fs'
+import path from 'path'
 
 export class LocalEnvironmentRepository implements IEnvironmentRepository{
+    constructor(){}
+
     public async get(subject: string, environment: string): Promise<EnvironmentFile | null> {
         try{
             return {
                 environment: environment,
                 subject: subject,
-                content: "SECRET=COMPANY_A_SECRET_VARIABLE"
             }
         } catch(error){
             throw new EnvironmentFileRetrievalError(error)
@@ -18,31 +21,53 @@ export class LocalEnvironmentRepository implements IEnvironmentRepository{
 
     public async list(): Promise<EnvironmentFile[]> {
         try{
-            return [
-                {
-                    environment: "development",
-                    subject: "company_a",
-                    content: "SECRET=COMPANY_A_SECRET_VARIABLE"
-                },
-                {
-                    environment: "production",
-                    subject: "company_a",
-                    content: "SECRET=COMPANY_A_SECRET_VARIABLE"
-                },
-                {
-                    environment: "development",
-                    subject: "company_b",
-                    content: "SECRET=COMPANY_B_SECRET_VARIABLE"
-                },
-                {
-                    environment: "production",
-                    subject: "company_b",
-                    content: "SECRET=COMPANY_B_SECRET_VARIABLE"
-                }
-            ]
+
+            const results = []
+            const subjects = this.getSubjects()
+            
+            for(const subjectName of subjects){
+                const environments = this.getEnvironmentsFromSubject(subjectName)
+                
+                for(const environmentName of environments){
+                    results.push({
+                        subject: subjectName,
+                        environment: environmentName.split('.').pop() as string
+                    })
+                }               
+            }
+
+            return results
+
         } catch(error){
             throw new EnvironmentFileListingError(error)
         }
-    
+    }
+
+    public getSubjects(): string[] {
+        const directoryPath = path.join(process.cwd(), 'environments')
+        const directoryContents = fs.readdirSync(directoryPath)
+
+        const subjects = directoryContents.filter(contentName => {
+            const stats = fs.statSync(path.join(directoryPath, contentName))
+            const isDirectory = stats.isDirectory()
+
+            return isDirectory
+        })
+        
+        return subjects
+    }
+
+    public getEnvironmentsFromSubject(subject: string): string[] {
+        const directoryPath = path.join(process.cwd(), 'environments', subject)
+        const fileNames = fs.readdirSync(directoryPath)
+        const environments = fileNames.filter(fileName => fileName.startsWith('.env'))
+        
+        return environments
+    }
+
+    public async exists(): Promise<boolean> {
+        return fs.existsSync(
+            path.join(process.cwd(), 'environments')
+        )
     }
 }
