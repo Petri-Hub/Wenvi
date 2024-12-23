@@ -6,14 +6,15 @@ import fs from 'fs'
 import path from 'path'
 
 export class LocalEnvironmentRepository implements IEnvironmentRepository{
-    constructor(){}
-
-    public async get(subject: string, environment: string): Promise<EnvironmentFile | null> {
+    public async get(subject: string, environment: string): Promise<string | null> {
         try{
-            return {
-                environment: environment,
-                subject: subject,
-            }
+           
+            const directory = path.join(process.cwd(), 'environments', subject)
+            const filePath = path.join(directory, `.env.${environment}`)
+            const environmentVariables = fs.readFileSync(filePath, 'utf-8')
+            
+            return environmentVariables
+
         } catch(error){
             throw new EnvironmentFileRetrievalError(error)
         }
