@@ -29,5 +29,6 @@ export class WenviCli{
         }
 
         console.error("Unknown error.")
+        console.error(error)
     }
 }
