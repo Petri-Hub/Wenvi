@@ -24,8 +24,14 @@ export class WenviCli{
     public async handleError(error: BaseError | Error | unknown): Promise<void> {
         if(error instanceof BaseError){
             console.error(error.getMessage())
-        } else if(error instanceof Error){
+            console.error(error.getError())
+            return
+        }
+        
+        if(error instanceof Error){
             console.error(error.message)
+            console.error(error.stack)
+            return
         }
 
         console.error("Unknown error.")
