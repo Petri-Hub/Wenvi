@@ -5,7 +5,7 @@ import { CommandNotFoundError } from "./errors/CommandNotFoundError"
 export class WenviCli{
     constructor(private commandRegistry: CommandRegistry) {}
     
-    public async run([,, commandName]: string[]): Promise<void> {
+    public async run([,, commandName, ...args]: string[]): Promise<void> {
         try{
 
             const command = this.commandRegistry.get(commandName)
@@ -14,7 +14,7 @@ export class WenviCli{
                 throw new CommandNotFoundError()
             }
 
-            return await command.execute()
+            return await command.execute(...args)
 
         } catch(error){
             await this.handleError(error)
