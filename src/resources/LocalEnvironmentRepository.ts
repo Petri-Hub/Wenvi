@@ -44,6 +44,14 @@ export class LocalEnvironmentRepository implements IEnvironmentRepository{
         }
     }
 
+    public async listSubjects(): Promise<string[]> {
+        return this.getSubjects()
+    }
+
+    public async listEnvironments(subject: string): Promise<string[]> {
+        return this.getEnvironmentsFromSubject(subject)
+    }
+
     public getSubjects(): string[] {
         const directoryPath = path.join(process.cwd(), 'environments')
         const directoryContents = fs.readdirSync(directoryPath)
@@ -70,5 +78,15 @@ export class LocalEnvironmentRepository implements IEnvironmentRepository{
         return fs.existsSync(
             path.join(process.cwd(), 'environments')
         )
+    }
+
+    public async example(): Promise<string | null> {
+        const examplePath = path.join(process.cwd(), 'environments', '.env.example')
+
+        if(!fs.existsSync(examplePath)){
+            return null
+        }
+
+        return fs.readFileSync(examplePath, 'utf-8')
     }
 }
