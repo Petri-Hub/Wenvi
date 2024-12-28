@@ -8,10 +8,12 @@ import { WenviCli } from "./WenviCli";
 import { PingCommand } from "./commands/PingCommand";
 import { UseCommand } from "./commands/UseCommand";
 import { ValidateCommand } from "./commands/ValidateCommand";
+import { UpdateCommand } from "./commands/UpdateCommand";
 
 const registry = new CommandRegistry()
 const repository = new LocalEnvironmentRepository()
 
+registry.set('update', new UpdateCommand())
 registry.set('use', new UseCommand(repository))
 registry.set('list', new ListCommand(repository))
 registry.set('validate', new ValidateCommand(repository))
