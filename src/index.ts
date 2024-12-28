@@ -13,11 +13,11 @@ import { UpgradeCommand } from "./commands/UpdateCommand";
 const registry = new CommandRegistry()
 const repository = new LocalEnvironmentRepository()
 
-registry.set('upgrade', new UpgradeCommand())
 registry.set('use', new UseCommand(repository))
 registry.set('list', new ListCommand(repository))
 registry.set('validate', new ValidateCommand(repository))
 registry.set('version', new VersionCommand())
+registry.set('upgrade', new UpgradeCommand())
 registry.set('ping', new PingCommand())
 
 new WenviCli(registry).run(process.argv)
