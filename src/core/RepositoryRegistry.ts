@@ -1,13 +1,4 @@
 import { IEnvironmentRepository } from "../interfaces/IEnvironmentRepository";
+import { Registry } from "./Registry";
 
-export class RepositoryRegistry {
-    private repositories = new Map<string, IEnvironmentRepository>();
-
-    public set(name: string, command: IEnvironmentRepository): void {
-        this.repositories.set(name, command);
-    }
-
-    public get(name: string): IEnvironmentRepository | null {
-        return this.repositories.get(name) ?? null;
-    }
-}
+export class RepositoryRegistry extends Registry<IEnvironmentRepository>{}
