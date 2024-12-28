@@ -1,11 +1,12 @@
 {
   "name": "wenvi",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "A environment management cli for dealing with .env in whitelabel apps",
   "main": "index.js",
   "author": "Fernando Petri",
   "license": "MIT",
   "scripts": {
+    "dev": "nodemon",
     "build": "tsc",
     "prepublishOnly": "npm run build"
   },
@@ -15,7 +16,11 @@
   "private": false,
   "devDependencies": {
     "@types/node": "^22.10.1",
+    "nodemon": "^3.1.9",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.2"
+  },
+  "dependencies": {
+    "chalk": "4.1.2"
   }
 }

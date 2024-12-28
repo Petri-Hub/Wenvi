@@ -1,10 +1,16 @@
 import { ICommand } from "../interfaces/ICommand";
-import { IEnvironmentRepository } from "../interfaces/IEnvironmentRepository";
+import { CommandInput } from "../types/CommandInput";
 
 export class ListCommand implements ICommand {
-    constructor(private repository: IEnvironmentRepository) { }
+    public async execute({ repository }: CommandInput): Promise<void> {
+        const environments = await repository.list()
+        const isEmpty = environments.length === 0
 
-    public async execute(): Promise<void> {
-        console.log(await this.repository.list())
+        if(isEmpty){
+            console.log('No environments found')
+            return
+        }
+
+        console.log(environments)
     }
 }
