@@ -1,17 +1,10 @@
 import { ExampleNotConfiguredError } from "../errors/ExampleNotConfiguredError";
-import { LocalRepositoryNotConfiguredError } from "../errors/LocalRepositoryNotConfiguredError";
 import { ICommand } from "../interfaces/ICommand";
-import { IEnvironmentRepository } from "../interfaces/IEnvironmentRepository";
+import { CommandInput } from "../types/CommandInput";
 
-export class ValidateCommand implements ICommand{
-    constructor(private repository: IEnvironmentRepository){}
-    
-    public async execute(): Promise<void> {
-        if(!this.repository.exists()){
-            throw new LocalRepositoryNotConfiguredError()
-        }
-
-        const example = await this.repository.example()
+export class ValidateCommand implements ICommand{    
+    public async execute({ repository }: CommandInput): Promise<void> {
+        const example = await repository.example()
 
         if(!example){
             throw new ExampleNotConfiguredError()
@@ -21,10 +14,10 @@ export class ValidateCommand implements ICommand{
             .split('\n')
             .map(line => line.split('=').at(0))
 
-        const subjects = await this.repository.listSubjects()
+        const subjects = await repository.listSubjects()
 
         for(const subjectName of subjects){
-            const environments = await this.repository.listEnvironments(subjectName)
+            const environments = await repository.listEnvironments(subjectName)
 
             console.group(subjectName)
 
@@ -32,7 +25,7 @@ export class ValidateCommand implements ICommand{
                 const missingVariables = []
 
                 const environmentName = environmentFileName.split('.').pop() as string
-                const environment = await this.repository.get(subjectName, environmentName) as string
+                const environment = await repository.get(subjectName, environmentName) as string
                 const environmentVariables = environment
                     .split('\n')
                     .map(line => line.split('=').at(0))
