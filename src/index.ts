@@ -9,15 +9,18 @@ import { PingCommand } from "./commands/PingCommand";
 import { UseCommand } from "./commands/UseCommand";
 import { ValidateCommand } from "./commands/ValidateCommand";
 import { UpgradeCommand } from "./commands/UpdateCommand";
+import { RepositoryRegistry } from "./core/RepositoryRegistry";
 
-const registry = new CommandRegistry()
-const repository = new LocalEnvironmentRepository()
+const commands = new CommandRegistry()
+const repositories = new RepositoryRegistry()
 
-registry.set('use', new UseCommand(repository))
-registry.set('list', new ListCommand(repository))
-registry.set('validate', new ValidateCommand(repository))
-registry.set('version', new VersionCommand())
-registry.set('upgrade', new UpgradeCommand())
-registry.set('ping', new PingCommand())
+repositories.set('local', new LocalEnvironmentRepository())
 
-new WenviCli(registry).run(process.argv)
+commands.set('use', new UseCommand())
+commands.set('list', new ListCommand())
+commands.set('validate', new ValidateCommand())
+commands.set('version', new VersionCommand())
+commands.set('upgrade', new UpgradeCommand())
+commands.set('ping', new PingCommand())
+
+new WenviCli(commands, repositories).run(process.argv)
