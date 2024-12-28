@@ -1,6 +1,6 @@
 import { CommandRegistry } from "./CommandRegistry"
-import { BaseError } from "./errors/BaseError"
-import { CommandNotFoundError } from "./errors/CommandNotFoundError"
+import { BaseError } from "../errors/BaseError"
+import { CommandNotFoundError } from "../errors/CommandNotFoundError"
 
 export class WenviCli{
     constructor(private commandRegistry: CommandRegistry) {}

@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-import { CommandRegistry } from "./CommandRegistry"
+import { CommandRegistry } from "./core/CommandRegistry"
 import { ListCommand } from "./commands/ListCommand";
 import { LocalEnvironmentRepository } from "./resources/LocalEnvironmentRepository";
 import { VersionCommand } from "./commands/VersionCommand";
-import { WenviCli } from "./WenviCli";
+import { WenviCli } from "./core/WenviCli";
 import { PingCommand } from "./commands/PingCommand";
 import { UseCommand } from "./commands/UseCommand";
 import { ValidateCommand } from "./commands/ValidateCommand";
