@@ -1,6 +1,6 @@
-import { IEnvironmentRepository } from "../interfaces/IEnvironmentRepository"
+import { IRepository } from "../interfaces/IRepository"
 
 export type CommandInput = {
-    repository: IEnvironmentRepository
+    repository: IRepository
     parameters: string[]
 }

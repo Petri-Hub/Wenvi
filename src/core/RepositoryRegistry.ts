@@ -1,4 +1,4 @@
-import { IEnvironmentRepository } from "../interfaces/IEnvironmentRepository";
+import { IRepository } from "../interfaces/IRepository";
 import { Registry } from "./Registry";
 
-export class RepositoryRegistry extends Registry<IEnvironmentRepository>{}
+export class RepositoryRegistry extends Registry<IRepository>{}

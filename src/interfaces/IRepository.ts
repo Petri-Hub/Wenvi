@@ -1,6 +1,6 @@
 import { EnvironmentFile } from "../types/EnvironmentFile";
 
-export interface IEnvironmentRepository {
+export interface IRepository {
    get(subject: string, environment: string): Promise<string | null>
    list(): Promise<EnvironmentFile[]>
    exists(): Promise<boolean>
