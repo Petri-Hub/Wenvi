@@ -1,11 +1,17 @@
+import { EnvironmentAlreadyCreatedError } from "../errors/EnvironmentAlreadyCreatedError";
 import { EnvironmentFileListingError } from "../errors/EnvironmentFileListingError";
 import { EnvironmentFileRetrievalError } from "../errors/EnvironmentFileRetrievalError";
+import { SubjectAlreadyCreatedError } from "../errors/SubjectAlreadyCreatedError";
 import { IRepository } from "../interfaces/IRepository";
 import { EnvironmentFile } from "../types/EnvironmentFile";
 import fs from 'fs'
 import path from 'path'
 
 export class LocalEnvironmentRepository implements IRepository{
+    constructor(
+        private readonly folder: string = 'environments'
+    ){}
+
     public async get(subject: string, environment: string): Promise<string | null> {
         try{
            
@@ -88,5 +94,49 @@ export class LocalEnvironmentRepository implements IRepository{
         }
 
         return fs.readFileSync(examplePath, 'utf-8')
+    }
+
+    public async createSubject(subject: string): Promise<void> {
+        const path = this.getSubjectPath(subject)
+
+        if(this.isSubjectCreated(subject)){
+            throw new SubjectAlreadyCreatedError()
+        }
+
+        fs.mkdirSync(path)
+    }
+
+    public async createEnvironment(subject: string, environment: string): Promise<void> {
+        const path = this.getEnvironmentPath(subject, environment)
+
+        if(this.isEnvironmentCreated(subject, environment)){
+            throw new EnvironmentAlreadyCreatedError()
+        }
+
+        fs.mkdirSync(path)
+    }
+
+    private isSubjectCreated(subject: string): boolean {
+        return fs.existsSync(this.getSubjectPath(subject))
+    }
+
+    private isEnvironmentCreated(subject: string, name: string): boolean {
+        return fs.existsSync(this.getEnvironmentPath(subject, name))
+    }
+
+    private getEnvironmentPath(subject: string, environment: string): string {
+        return path.join(this.getSubjectPath(subject), `.env.${environment}`)
+    }
+
+    private getSubjectPath(subject: string): string {
+        return path.join(this.getRepositoryPath(), subject)
+    }
+
+    private getRepositoryPath(): string {
+        return path.join(process.cwd(), 'environments')
+    }
+
+    private getFolder(): string {
+        return this.folder
     }
 }

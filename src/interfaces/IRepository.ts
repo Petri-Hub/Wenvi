@@ -7,4 +7,6 @@ export interface IRepository {
    example(): Promise<string | null>
    listSubjects(): Promise<string[]>
    listEnvironments(subject: string): Promise<string[]>
+   createSubject(subject: string): Promise<void>
+   createEnvironment(subject: string, environment: string): Promise<void>
 }
