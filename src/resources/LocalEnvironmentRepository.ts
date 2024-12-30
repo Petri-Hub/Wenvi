@@ -109,11 +109,15 @@ export class LocalEnvironmentRepository implements IRepository{
     public async createEnvironment(subject: string, environment: string): Promise<void> {
         const path = this.getEnvironmentPath(subject, environment)
 
+        if(!this.isSubjectCreated(subject)){
+            this.createSubject(subject)
+        }
+
         if(this.isEnvironmentCreated(subject, environment)){
             throw new EnvironmentAlreadyCreatedError()
         }
 
-        fs.mkdirSync(path)
+        fs.writeFileSync(path, '')
     }
 
     private isSubjectCreated(subject: string): boolean {
