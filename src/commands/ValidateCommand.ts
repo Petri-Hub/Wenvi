@@ -1,4 +1,4 @@
-import { ExampleNotConfiguredError } from "../errors/ExampleNotConfiguredError";
+import { ExampleNotFoundError } from "../errors/ExampleNotConfiguredError";
 import { ICommand } from "../interfaces/ICommand";
 import { CommandInput } from "../types/CommandInput";
 
@@ -7,7 +7,7 @@ export class ValidateCommand implements ICommand{
         const example = await repository.example()
 
         if(!example){
-            throw new ExampleNotConfiguredError()
+            throw new ExampleNotFoundError()
         }
 
         const variables = example
