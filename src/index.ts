@@ -11,6 +11,7 @@ import { ValidateCommand } from "./commands/ValidateCommand";
 import { UpgradeCommand } from "./commands/UpdateCommand";
 import { RepositoryRegistry } from "./core/RepositoryRegistry";
 import { DocsCommand } from "./commands/DocsCommand";
+import { ViewCommand } from "./commands/ViewCommand";
 
 const commands = new CommandRegistry()
 const repositories = new RepositoryRegistry()
@@ -18,6 +19,7 @@ const repositories = new RepositoryRegistry()
 repositories.set('local', new LocalEnvironmentRepository())
 
 commands.set('use', new UseCommand())
+commands.set('view', new ViewCommand())
 commands.set('list', new ListCommand())
 commands.set('validate', new ValidateCommand())
 commands.set('version', new VersionCommand())
