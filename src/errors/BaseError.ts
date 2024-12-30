@@ -1,7 +1,7 @@
 import { BaseErrorData } from "../types/BaseErrorData";
 
 export abstract class BaseError {
-    private code: string
+    private code: number
     private message: string
     private error: unknown
 
@@ -11,7 +11,7 @@ export abstract class BaseError {
         this.error = error
     }
 
-    public getCode(): string {
+    public getCode(): number {
         return this.code
     }
 
