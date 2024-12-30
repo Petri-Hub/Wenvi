@@ -5,6 +5,10 @@
   "main": "index.js",
   "author": "Fernando Petri",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Petri-Hub/Wenvi"
+  },
   "scripts": {
     "dev": "nodemon",
     "build": "tsc",
@@ -21,6 +25,7 @@
     "typescript": "^5.7.2"
   },
   "dependencies": {
-    "chalk": "4.1.2"
+    "chalk": "4.1.2",
+    "open": "7"
   }
 }
