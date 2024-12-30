@@ -7,5 +7,7 @@ export enum ErrorCodes {
     SubjectNotSpecified,
     EnvironmentNotSpecified,
     EnvironmentListingError,
-    EnvironmentRetrievalError
+    EnvironmentRetrievalError,
+    SubjectAlreadyCreated,
+    EnvironmentAlreadyCreated
 }

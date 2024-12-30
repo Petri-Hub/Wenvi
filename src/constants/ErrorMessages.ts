@@ -8,4 +8,6 @@ export enum ErrorMessages {
     EnvironmentNotSpecified = "The environment was not specified.",
     EnvironmentListingError = "An error ocurred while listing the environments.",
     EnvironmentRetrievalError = "An error ocurred while retrieving the environment.",
+    SubjectAlreadyCreated = "The subject already exists.",
+    EnvironmentAlreadyCreated = "The environment already exists.",
 }
