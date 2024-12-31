@@ -13,6 +13,7 @@
 
 - [About](#About)
 - [Features](#Features)
+- [Glossary](#Glossary)
 - [Installation](#Installation)
 - [QuickStart](#QuickStart)
 - [Commands](#Commands)
@@ -21,6 +22,11 @@
 <h2 id="About">About</h2>
 
 Wenvi is a Node.js CLI tool written in TypeScript designed to manage `.env` files in whitelabel applications. It simplifies the process of handling environment variables across different subjects and environments, making it easier to manage configurations for various deployments.
+
+<h2 id="Glossary">Glossary</h2>
+
+- **Subject:** The entity that requires its own set of environments, in most cases, a company you're working for.
+- **Environment:** A collection of variables that typically represents a stage of deployment such as development or production.
 
 <h2 id="Features">Features</h2>
 
@@ -43,19 +49,19 @@ npm install -g wenvi
 
 | Command  | Descritiption                                                                             | Format                                                          |
 |----------|-------------------------------------------------------------------------------------------|-----------------------------------------------------------------|
-| init     | Creates the repository folder where the subjects and environments are going to be stored. | `wenvi init`                                                    |
-| create   | Creates a subject or environment.                                                         | `wenvi create <subject>`<br>`wenvi create <subject> <environment>` |
-| list     | Lists all the registered subjects its environments.                                       | `wenvi list`<br>`wenvi list <subject-1> <subject-2> ...`           |
-| use      | Switch your curent .env file with the selected environment.                               | `wenvi use <subject> <environment>`                             |
-| view     | Outputs an environment variables into the console.                                        | `wenvi view <subject> <environment>`                            |
-| open     | Opens an environment with your default text editor.                                       | `wenvi open <subject> <environment>`                            |
-| delete   | Deletes a subject or environment.                                                         | `wenvi delete <subject>`<br>`wenvi delete <subject> <environment>` |
-| table    | Shows a table that compares which subject has which environment.                          | `wenvi table`<br>`wenvi table <subject-1> <subject-2> ...`         |
-| example  | Setups the .env.example file that allows environments validation.                         | `wenvi example`                                                 |
-| validate | Validates all your environments following the .env.example file structure.                | `wenvi validate`                                                |
-| version  | Outputs the current Wenvi version installed.                                              | `wenvi version`                                                 |
-| upgrade  | Upgrades the Wenvi CLI to the latest version.                                             | `wenvi upgrade`                                                 |
-| docs     | Open the Wenvi in your browser.                                                           | `wenvi docs`                                                    |
+| **init**     | Creates the repository folder where the subjects and environments are going to be stored. | `wenvi init`                                                    |
+| **create**   | Creates a subject or environment.                                                         | `wenvi create <subject>`<br>`wenvi create <subject> <environment>` |
+| **list**     | Lists all the registered subjects its environments.                                       | `wenvi list`<br>`wenvi list <subject-1> <subject-2> ...`           |
+| **use**      | Switch your curent .env file with the selected environment.                               | `wenvi use <subject> <environment>`                             |
+| **view**     | Outputs an environment variables into the console.                                        | `wenvi view <subject> <environment>`                            |
+| **open**     | Opens an environment with your default text editor.                                       | `wenvi open <subject> <environment>`                            |
+| **delete**   | Deletes a subject or environment.                                                         | `wenvi delete <subject>`<br>`wenvi delete <subject> <environment>` |
+| **table**    | Shows a table that compares which subject has which environment.                          | `wenvi table`<br>`wenvi table <subject-1> <subject-2> ...`         |
+| **example**  | Setups the .env.example file that allows environments validation.                         | `wenvi example`                                                 |
+| **validate** | Validates all your environments following the .env.example file structure.                | `wenvi validate`                                                |
+| **version**  | Outputs the current Wenvi version installed.                                              | `wenvi version`                                                 |
+| **upgrade**  | Upgrades the Wenvi CLI to the latest version.                                             | `wenvi upgrade`                                                 |
+| **docs**     | Open the Wenvi in your browser.                                                           | `wenvi docs`                                                    |
 
 <h2 id="License">License</h2>
 
