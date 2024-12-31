@@ -17,12 +17,14 @@ import { DeleteCommand } from "./commands/DeleteCommand";
 import { ExampleCommand } from "./commands/ExampleCommand";
 import { OpenCommand } from "./commands/OpenCommand";
 import { TableCommand } from "./commands/TableCommand";
+import { InitCommand } from "./commands/InitCommand";
 
 const commands = new CommandRegistry()
 const repositories = new RepositoryRegistry()
 
 repositories.set('local', new LocalEnvironmentRepository())
 
+commands.set('init', new InitCommand())
 commands.set('use', new UseCommand())
 commands.set('open', new OpenCommand())
 commands.set('view', new ViewCommand())
