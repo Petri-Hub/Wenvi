@@ -4,11 +4,7 @@ import { CommandInput } from "../types/CommandInput";
 
 export class ValidateCommand implements ICommand{    
     public async execute({ repository }: CommandInput): Promise<void> {
-        const example = await repository.example()
-
-        if(!example){
-            throw new ExampleNotFoundError()
-        }
+        const example = await repository.getExample()
 
         const variables = example
             .split('\n')
