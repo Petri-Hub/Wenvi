@@ -11,4 +11,6 @@ export enum ErrorMessages {
     SubjectAlreadyCreated = "The subject already exists.",
     EnvironmentAlreadyCreated = "The environment already exists.",
     ExampleAlreadyConfigured = "The example file was already configured.",
+    SubjectNotFound = "The subject was not found.",
+    EnvironmentNotFound = "The environment was not found."
 }

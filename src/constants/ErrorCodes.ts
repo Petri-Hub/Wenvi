@@ -10,5 +10,7 @@ export enum ErrorCodes {
     EnvironmentRetrievalError,
     SubjectAlreadyCreated,
     EnvironmentAlreadyCreated,
-    ExampleAlreadyConfigured
+    ExampleAlreadyConfigured,
+    SubjectNotFound,
+    EnvironmentNotFound
 }
