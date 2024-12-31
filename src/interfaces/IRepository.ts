@@ -1,4 +1,5 @@
 export interface IRepository {
+   init(): Promise<void>
    exists(): Promise<boolean>
    getSubjects(): Promise<string[]>
    getEnvironments(subject: string): Promise<string[]>

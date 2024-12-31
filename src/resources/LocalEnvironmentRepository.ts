@@ -8,11 +8,20 @@ import { SubjectNotFoundError } from "../errors/SubjectNotFoundError";
 import { IRepository } from "../interfaces/IRepository";
 import fs from 'fs'
 import path from 'path'
+import { RepositoryAlreadyCreated } from "../errors/RepositoryAlreadyCreated";
 
 export class LocalEnvironmentRepository implements IRepository{
     constructor(
         private readonly folder: string = 'environments'
     ){}
+
+    public async init(): Promise<void> {
+        if(await this.exists()){
+            throw new RepositoryAlreadyCreated()
+        }
+
+        fs.mkdirSync(this.getRepositoryPath())
+    }
 
     public async getSubjects(): Promise<string[]> {
         const path = this.getRepositoryPath()

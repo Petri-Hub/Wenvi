@@ -12,5 +12,6 @@ export enum ErrorCodes {
     EnvironmentAlreadyCreated,
     ExampleAlreadyConfigured,
     SubjectNotFound,
-    EnvironmentNotFound
+    EnvironmentNotFound,
+    RepositoryAlreadyCreated
 }
