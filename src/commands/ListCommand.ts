@@ -6,10 +6,10 @@ import { TextToColorConverter } from '../helpers/TextToColorConverter'
 import { IRepository } from "../interfaces/IRepository";
 
 export class ListCommand implements ICommand {
-    public async execute({ repository }: CommandInput): Promise<void> {
+    public async execute({ repository, parameters }: CommandInput): Promise<void> {
         Logger.log('Configured environments:\n')
         
-        const subjects = await repository.getSubjects()
+        const subjects = await this.handleCommandTargets(repository, parameters)
 
         for(const subjectName of subjects){
             const subjectColor = TextToColorConverter.convert(subjectName)
@@ -30,5 +30,19 @@ export class ListCommand implements ICommand {
             
             console.log()
         }
+    }
+
+    private async handleCommandTargets(repository: IRepository, parameters: string[]): Promise<string[]> { 
+        if(!parameters.length){
+            return await repository.getSubjects()
+        }
+
+        const subjects = await repository.getSubjects()
+        
+        const targets = subjects.filter(subjectName => {
+            return parameters.includes(subjectName)
+        })
+
+        return targets
     }
 }
