@@ -7,22 +7,18 @@ import { CommandInput } from "../types/CommandInput";
 import fs from 'fs'
 
 export class UseCommand implements ICommand{
-    public async execute({ repository, parameters: [subject, environment] }: CommandInput): Promise<void>{
-        if(!subject){
+    public async execute({ repository, parameters: [subjectName, environmentName] }: CommandInput): Promise<void>{
+        if(!subjectName){
             throw new SubjectNotSpecifiedError()
         }
-        if(!environment){
+        if(!environmentName){
             throw new EnvironmentNotSpecifiedError()
         }
   
-        const environmentVariables = await repository.get(subject, environment)
+        const environment = await repository.getEnvironment(subjectName, environmentName)
         
-        if(environmentVariables === null){
-            return
-        }
+        fs.writeFileSync(process.cwd() + '/.env', environment)
 
-        fs.writeFileSync(process.cwd() + '/.env', environmentVariables)
-
-        Logger.success(`Using ${chalk.bold.underline(subject)} in ${chalk.bold.underline(environment)} environment`)
+        Logger.success(`Using ${chalk.bold.underline(subjectName)} in ${chalk.bold.underline(environmentName)} environment`)
     }
 }
