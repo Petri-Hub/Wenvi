@@ -9,5 +9,6 @@ export enum ErrorCodes {
     EnvironmentListingError,
     EnvironmentRetrievalError,
     SubjectAlreadyCreated,
-    EnvironmentAlreadyCreated
+    EnvironmentAlreadyCreated,
+    ExampleAlreadyConfigured
 }
