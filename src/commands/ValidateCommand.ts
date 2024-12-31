@@ -10,10 +10,10 @@ export class ValidateCommand implements ICommand{
             .split('\n')
             .map(line => line.split('=').at(0))
 
-        const subjects = await repository.listSubjects()
+        const subjects = await repository.getSubjects()
 
         for(const subjectName of subjects){
-            const environments = await repository.listEnvironments(subjectName)
+            const environments = await repository.getEnvironments(subjectName)
 
             console.group(subjectName)
 
@@ -21,7 +21,7 @@ export class ValidateCommand implements ICommand{
                 const missingVariables = []
 
                 const environmentName = environmentFileName.split('.').pop() as string
-                const environment = await repository.get(subjectName, environmentName) as string
+                const environment = await repository.getEnvironment(subjectName, environmentName) as string
                 const environmentVariables = environment
                     .split('\n')
                     .map(line => line.split('=').at(0))

@@ -1,14 +1,11 @@
 import open from "open";
 import { EnvironmentAlreadyCreatedError } from "../errors/EnvironmentAlreadyCreatedError";
-import { EnvironmentFileListingError } from "../errors/EnvironmentFileListingError";
-import { EnvironmentFileRetrievalError } from "../errors/EnvironmentFileRetrievalError";
 import { EnvironmentNotFoundError } from "../errors/EnvironmentNotFoundError";
 import { ExampleAlreadyConfiguredError } from "../errors/ExampleAlreadyConfiguredError";
 import { ExampleNotFoundError } from "../errors/ExampleNotConfiguredError";
 import { SubjectAlreadyCreatedError } from "../errors/SubjectAlreadyCreatedError";
 import { SubjectNotFoundError } from "../errors/SubjectNotFoundError";
 import { IRepository } from "../interfaces/IRepository";
-import { EnvironmentFile } from "../types/EnvironmentFile";
 import fs from 'fs'
 import path from 'path'
 
@@ -17,72 +14,43 @@ export class LocalEnvironmentRepository implements IRepository{
         private readonly folder: string = 'environments'
     ){}
 
-    public async get(subject: string, environment: string): Promise<string | null> {
-        try{
-           
-            const directory = path.join(process.cwd(), 'environments', subject)
-            const filePath = path.join(directory, `.env.${environment}`)
-            const environmentVariables = fs.readFileSync(filePath, 'utf-8')
-            
-            return environmentVariables
+    public async getSubjects(): Promise<string[]> {
+        const path = this.getRepositoryPath()
 
-        } catch(error){
-            throw new EnvironmentFileRetrievalError(error)
-        }
-    }
-
-    public async list(): Promise<EnvironmentFile[]> {
-        try{
-
-            const results = []
-            const subjects = this.getSubjects()
-            
-            for(const subjectName of subjects){
-                const environments = this.getEnvironmentsFromSubject(subjectName)
-                
-                for(const environmentName of environments){
-                    results.push({
-                        subject: subjectName,
-                        environment: environmentName.split('.').pop() as string
-                    })
-                }               
-            }
-
-            return results
-
-        } catch(error){
-            throw new EnvironmentFileListingError(error)
-        }
-    }
-
-    public async listSubjects(): Promise<string[]> {
-        return this.getSubjects()
-    }
-
-    public async listEnvironments(subject: string): Promise<string[]> {
-        return this.getEnvironmentsFromSubject(subject)
-    }
-
-    public getSubjects(): string[] {
-        const directoryPath = path.join(process.cwd(), 'environments')
-        const directoryContents = fs.readdirSync(directoryPath)
-
-        const subjects = directoryContents.filter(contentName => {
-            const stats = fs.statSync(path.join(directoryPath, contentName))
-            const isDirectory = stats.isDirectory()
-
-            return isDirectory
+        const items = fs.readdirSync(path, {
+            withFileTypes: true
         })
-        
-        return subjects
+
+        const folders = items
+            .filter(item => item.isDirectory())
+            .map(item => item.name)
+
+        return folders
     }
 
-    public getEnvironmentsFromSubject(subject: string): string[] {
-        const directoryPath = path.join(process.cwd(), 'environments', subject)
-        const fileNames = fs.readdirSync(directoryPath)
-        const environments = fileNames.filter(fileName => fileName.startsWith('.env'))
-        
+    public async getEnvironments(subject: string): Promise<string[]> {
+        const path = this.getSubjectPath(subject)
+
+        const items = fs.readdirSync(path, {
+            withFileTypes: true
+        })
+
+        const environments = items
+            .filter(item => item.isFile())
+            .filter(item => item.name.startsWith('.env.'))
+            .map(item => item.name.split('.').pop() as string)
+
         return environments
+    }
+
+    public async getEnvironment(subject: string, environment: string): Promise<string> {
+        const path = this.getEnvironmentPath(subject, environment)
+
+        if(!this.isEnvironmentCreated(subject, environment)){
+            throw new EnvironmentNotFoundError()
+        }
+
+        return fs.readFileSync(path, 'utf-8')
     }
 
     public async exists(): Promise<boolean> {
