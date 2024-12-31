@@ -10,4 +10,6 @@ export interface IRepository {
    createExample(): Promise<void>
    createSubject(subject: string): Promise<void>
    createEnvironment(subject: string, environment: string): Promise<void>
+   deleteSubject(subject: string): Promise<void>
+   deleteEnvironment(subject: string, environment: string): Promise<void>
 }

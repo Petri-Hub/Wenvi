@@ -1,9 +1,11 @@
 import { EnvironmentAlreadyCreatedError } from "../errors/EnvironmentAlreadyCreatedError";
 import { EnvironmentFileListingError } from "../errors/EnvironmentFileListingError";
 import { EnvironmentFileRetrievalError } from "../errors/EnvironmentFileRetrievalError";
+import { EnvironmentNotFoundError } from "../errors/EnvironmentNotFoundError";
 import { ExampleAlreadyConfiguredError } from "../errors/ExampleAlreadyConfiguredError";
 import { ExampleNotFoundError } from "../errors/ExampleNotConfiguredError";
 import { SubjectAlreadyCreatedError } from "../errors/SubjectAlreadyCreatedError";
+import { SubjectNotFoundError } from "../errors/SubjectNotFoundError";
 import { IRepository } from "../interfaces/IRepository";
 import { EnvironmentFile } from "../types/EnvironmentFile";
 import fs from 'fs'
@@ -130,6 +132,30 @@ export class LocalEnvironmentRepository implements IRepository{
         }
 
         fs.writeFileSync(path, '')
+    }
+
+    public async deleteSubject(subject: string): Promise<void> {
+        const path = this.getSubjectPath(subject)
+
+        if(!this.isSubjectCreated(subject)){
+            throw new SubjectNotFoundError()
+        }
+
+        fs.rmdirSync(path)
+    }
+
+    public async deleteEnvironment(subject: string, environment: string): Promise<void> {
+        const path = this.getEnvironmentPath(subject, environment)
+
+        if(!this.isSubjectCreated(subject)){
+            throw new SubjectNotFoundError()
+        }
+
+        if(!this.isEnvironmentCreated(subject, environment)){
+            throw new EnvironmentNotFoundError()
+        }
+
+        fs.rmSync(path)
     }
 
     private isExampleCreated(): boolean {
