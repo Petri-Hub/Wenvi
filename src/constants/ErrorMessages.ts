@@ -10,7 +10,7 @@ export enum ErrorMessages {
     EnvironmentRetrievalError = "An error ocurred while retrieving the environment.",
     SubjectAlreadyCreated = "The subject already exists.",
     EnvironmentAlreadyCreated = "The environment already exists.",
-    ExampleAlreadyConfigured = "The example file was already configured.",
+    ExampleAlreadyConfigured = "The example file is already configured.",
     SubjectNotFound = "The subject was not found.",
     EnvironmentNotFound = "The environment was not found."
 }
