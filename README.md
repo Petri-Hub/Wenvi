@@ -40,6 +40,23 @@ npm install -g wenvi
 
 <h2 id="QuickStart">Quick Start</h2>
 <h2 id="Commands">Commands</h2>
+
+| Command  | Descritiption                                                                             | Format                                                          |
+|----------|-------------------------------------------------------------------------------------------|-----------------------------------------------------------------|
+| init     | Creates the repository folder where the subjects and environments are going to be stored. | `wenvi init`                                                    |
+| create   | Creates a subject or environment.                                                         | `wenvi create <subject>`<br>`wenvi create <subject> <environment>` |
+| list     | Lists all the registered subjects its environments.                                       | `wenvi list`<br>`wenvi list <subject-1> <subject-2> ...`           |
+| use      | Switch your curent .env file with the selected environment.                               | `wenvi use <subject> <environment>`                             |
+| view     | Outputs an environment variables into the console.                                        | `wenvi view <subject> <environment>`                            |
+| open     | Opens an environment with your default text editor.                                       | `wenvi open <subject> <environment>`                            |
+| delete   | Deletes a subject or environment.                                                         | `wenvi delete <subject>`<br>`wenvi delete <subject> <environment>` |
+| table    | Shows a table that compares which subject has which environment.                          | `wenvi table`<br>`wenvi table <subject-1> <subject-2> ...`         |
+| example  | Setups the .env.example file that allows environments validation.                         | `wenvi example`                                                 |
+| validate | Validates all your environments following the .env.example file structure.                | `wenvi validate`                                                |
+| version  | Outputs the current Wenvi version installed.                                              | `wenvi version`                                                 |
+| upgrade  | Upgrades the Wenvi CLI to the latest version.                                             | `wenvi upgrade`                                                 |
+| docs     | Open the Wenvi in your browser.                                                           | `wenvi docs`                                                    |
+
 <h2 id="License">License</h2>
 
 This project is licensed under the MIT License.
