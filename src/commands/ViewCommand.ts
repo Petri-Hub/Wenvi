@@ -2,9 +2,18 @@ import chalk from "chalk";
 import { ICommand } from "../interfaces/ICommand";
 import { Logger } from "../logging/Logger";
 import { CommandInput } from "../types/CommandInput";
+import { SubjectNotSpecifiedError } from "../errors/SubjectNotSpecifiedError";
+import { EnvironmentNotSpecifiedError } from "../errors/EnvironmentNotSpecifiedError";
 
 export class ViewCommand implements ICommand{
     public async execute({ repository, parameters: [subjectName, environmentName] }: CommandInput): Promise<void> {
+        if(!subjectName){
+            throw new SubjectNotSpecifiedError()
+        }
+        if(!environmentName){
+            throw new EnvironmentNotSpecifiedError()
+        }
+        
         const variables = await repository.getEnvironment(subjectName, environmentName)
         const isEmpty = variables.replace(/[^A-Za-z0-9=]/gi, '').length === 0
 
