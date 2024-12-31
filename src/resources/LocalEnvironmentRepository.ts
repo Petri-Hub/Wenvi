@@ -1,3 +1,4 @@
+import open from "open";
 import { EnvironmentAlreadyCreatedError } from "../errors/EnvironmentAlreadyCreatedError";
 import { EnvironmentFileListingError } from "../errors/EnvironmentFileListingError";
 import { EnvironmentFileRetrievalError } from "../errors/EnvironmentFileRetrievalError";
@@ -88,6 +89,26 @@ export class LocalEnvironmentRepository implements IRepository{
         return fs.existsSync(
             path.join(process.cwd(), 'environments')
         )
+    }
+
+    public async openSubject(subject: string): Promise<void> {
+        const path = this.getSubjectPath(subject)
+
+        if(!this.isSubjectCreated(subject)){
+            throw new SubjectNotFoundError()
+        }
+
+        open(path)
+    }
+
+    public async openEnvironment(subject: string, environment: string): Promise<void> {
+        const path = this.getEnvironmentPath(subject, environment)
+
+        if(!this.isEnvironmentCreated(subject, environment)){
+            throw new EnvironmentNotFoundError()
+        }
+
+        open(path)
     }
 
     public async getExample(): Promise<string> {

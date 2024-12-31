@@ -15,6 +15,7 @@ import { ViewCommand } from "./commands/ViewCommand";
 import { CreateCommand } from "./commands/CreateCommand";
 import { DeleteCommand } from "./commands/DeleteCommand";
 import { ExampleCommand } from "./commands/ExampleCommand";
+import { OpenCommand } from "./commands/OpenCommand";
 
 const commands = new CommandRegistry()
 const repositories = new RepositoryRegistry()
@@ -22,6 +23,7 @@ const repositories = new RepositoryRegistry()
 repositories.set('local', new LocalEnvironmentRepository())
 
 commands.set('use', new UseCommand())
+commands.set('open', new OpenCommand())
 commands.set('view', new ViewCommand())
 commands.set('create', new CreateCommand())
 commands.set('example', new ExampleCommand())
