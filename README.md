@@ -15,8 +15,8 @@
 - [Features](#Features)
 - [Glossary](#Glossary)
 - [Installation](#Installation)
-- [QuickStart](#QuickStart)
 - [Commands](#Commands)
+- [Use Cases](#UseCases)
 - [License](#License)
 
 <h2 id="About">About</h2>
@@ -44,7 +44,6 @@ To install Wenvi, you need to have **Node.js** and **npm** installed on your mac
 npm install -g wenvi
 ```
 
-<h2 id="QuickStart">Quick Start</h2>
 <h2 id="Commands">Commands</h2>
 
 | Command  | Descritiption                                                                             | Format                                                          |
@@ -62,6 +61,8 @@ npm install -g wenvi
 | **version**  | Outputs the current Wenvi version installed.                                              | `wenvi version`                                                 |
 | **upgrade**  | Upgrades the Wenvi CLI to the latest version.                                             | `wenvi upgrade`                                                 |
 | **docs**     | Open the Wenvi in your browser.                                                           | `wenvi docs`                                                    |
+
+<h2 id="UseCases">Use Cases</h2>
 
 <h2 id="License">License</h2>
 
