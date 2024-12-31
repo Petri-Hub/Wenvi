@@ -1,5 +1,6 @@
 import { ICommand } from "../interfaces/ICommand";
 import { IRepository } from "../interfaces/IRepository";
+import { Logger } from "../logging/Logger";
 import { CommandInput } from "../types/CommandInput";
 
 export class TableCommand implements ICommand{
@@ -8,6 +9,16 @@ export class TableCommand implements ICommand{
 
         const subjects = await this.handleCommandTargets(repository, parameters)
         const possibleEnvironments = await this.getAllPossibleEnvironmentNames(repository)
+
+        if(!subjects.length){
+            Logger.log('You have no subjects to display.')
+            return
+        }
+
+        if(!possibleEnvironments.length){
+            Logger.log('You have no environments to display.')
+            return
+        }
 
         for(const subjectName of subjects){
             const subjectEnvironments = await repository.getEnvironments(subjectName)
