@@ -3,14 +3,17 @@ import { ICommand } from "../interfaces/ICommand";
 import { IRepository } from "../interfaces/IRepository";
 import { Logger } from "../logging/Logger";
 import { CommandInput } from "../types/CommandInput";
+import { SubjectNotSpecifiedError } from "../errors/SubjectNotSpecifiedError";
 
 export class CreateCommand implements ICommand{
     public async execute({ repository, parameters: [subjectName, environmentName]}: CommandInput): Promise<void> {
-        if(!environmentName){
-            await this.createSubject(repository, subjectName);
-        } else {
-            await this.createEnvironment(repository, subjectName, environmentName);
+        if(!subjectName){
+            throw new SubjectNotSpecifiedError()
         }
+
+        environmentName
+            ? await this.createEnvironment(repository, subjectName, environmentName)
+            : await this.createSubject(repository, subjectName)
     }
 
     public async createSubject(repository: IRepository, subjectName: string): Promise<void> {
