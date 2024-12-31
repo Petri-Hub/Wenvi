@@ -55,6 +55,10 @@ export class LocalEnvironmentRepository implements IRepository{
     public async getEnvironment(subject: string, environment: string): Promise<string> {
         const path = this.getEnvironmentPath(subject, environment)
 
+        if(!this.isSubjectCreated(subject)){
+            throw new SubjectNotFoundError()
+        }
+
         if(!this.isEnvironmentCreated(subject, environment)){
             throw new EnvironmentNotFoundError()
         }
@@ -80,6 +84,10 @@ export class LocalEnvironmentRepository implements IRepository{
 
     public async openEnvironment(subject: string, environment: string): Promise<void> {
         const path = this.getEnvironmentPath(subject, environment)
+
+        if(!this.isSubjectCreated(subject)){
+            throw new SubjectNotFoundError()
+        }
 
         if(!this.isEnvironmentCreated(subject, environment)){
             throw new EnvironmentNotFoundError()

@@ -3,14 +3,17 @@ import { ICommand } from "../interfaces/ICommand";
 import { CommandInput } from "../types/CommandInput";
 import { Logger } from "../logging/Logger";
 import { IRepository } from "../interfaces/IRepository";
+import { SubjectNotSpecifiedError } from "../errors/SubjectNotSpecifiedError";
 
 export class DeleteCommand implements ICommand{
     public async execute({ repository, parameters: [subjectName, environmentName]}: CommandInput): Promise<void> {
-        if(!environmentName){
-            await this.deleteSubject(repository, subjectName);
-        } else {
-            await this.deleteEnvironment(repository, subjectName, environmentName);
+        if(!subjectName){
+            throw new SubjectNotSpecifiedError()
         }
+        
+        environmentName
+            ? await this.deleteEnvironment(repository, subjectName, environmentName)
+            : await this.deleteSubject(repository, subjectName)
     }
 
     private async deleteSubject(repository: IRepository, subjectName: string): Promise<void> {

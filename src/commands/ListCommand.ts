@@ -7,9 +7,15 @@ import { IRepository } from "../interfaces/IRepository";
 
 export class ListCommand implements ICommand {
     public async execute({ repository, parameters }: CommandInput): Promise<void> {
-        Logger.log('Configured environments:\n')
-        
         const subjects = await this.handleCommandTargets(repository, parameters)
+        const hasNoSubjects = subjects.length === 0
+        
+        if(hasNoSubjects){
+            Logger.log('No environments were found.')
+            return
+        }
+
+        Logger.log('Configured environments:\n')
 
         for(const subjectName of subjects){
             const subjectColor = TextToColorConverter.convert(subjectName)

@@ -1,5 +1,6 @@
 import { ICommand } from "../interfaces/ICommand";
 import { IRepository } from "../interfaces/IRepository";
+import { Logger } from "../logging/Logger";
 import { CommandInput } from "../types/CommandInput";
 
 export class TableCommand implements ICommand{
@@ -9,15 +10,28 @@ export class TableCommand implements ICommand{
         const subjects = await this.handleCommandTargets(repository, parameters)
         const possibleEnvironments = await this.getAllPossibleEnvironmentNames(repository)
 
+        if(!subjects.length){
+            Logger.log('You have no subjects to display.')
+            return
+        }
+
+        if(!possibleEnvironments.length){
+            Logger.log('You have no environments to display.')
+            return
+        }
+
         for(const subjectName of subjects){
             const subjectEnvironments = await repository.getEnvironments(subjectName)
-            const row: Record<string, string | boolean> = {
-                name: subjectName
+            
+            const row: Record<string, any> = {
+                name: subjectName,
+                environments: 0
             }
 
             for(const environmentName of possibleEnvironments){
                 if(subjectEnvironments.includes(environmentName)){
                     row[environmentName] = '✅'
+                    row['environments']++
                 } else {
                     row[environmentName] = '❌'
                 }
@@ -25,8 +39,13 @@ export class TableCommand implements ICommand{
 
             rows.push(row)
         }
+
+        const sortedRows = rows.sort((rowA, rowB) => {
+            return rowB.environments - rowA.environments 
+        })
     
-        console.table(rows)
+        Logger.log('Table of subjects and environments:')
+        console.table(sortedRows, ['name', ...possibleEnvironments])
     }
 
     private async handleCommandTargets(repository: IRepository, parameters: string[]): Promise<string[]> {
@@ -52,6 +71,10 @@ export class TableCommand implements ICommand{
 
         const uniqueEnvironments = new Set(allEnvironments.flat())
 
-        return Array.from(uniqueEnvironments)
+        const sortedEnvironemnts = Array.from(uniqueEnvironments).sort((environmentA, environmentB) => {
+            return Intl.Collator().compare(environmentA, environmentB)
+        })
+
+        return sortedEnvironemnts
     }
 }
