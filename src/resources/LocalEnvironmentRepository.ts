@@ -6,7 +6,7 @@ import { ExampleNotFoundError } from "../errors/ExampleNotConfiguredError";
 import { SubjectAlreadyCreatedError } from "../errors/SubjectAlreadyCreatedError";
 import { SubjectNotFoundError } from "../errors/SubjectNotFoundError";
 import { IRepository } from "../interfaces/IRepository";
-import fs from 'fs'
+import fs from 'fs-extra'
 import path from 'path'
 import { RepositoryAlreadyCreated } from "../errors/RepositoryAlreadyCreated";
 
@@ -139,6 +139,7 @@ export class LocalEnvironmentRepository implements IRepository{
             throw new SubjectNotFoundError()
         }
 
+        fs.emptyDirSync(path)
         fs.rmdirSync(path)
     }
 
