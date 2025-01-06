@@ -3,6 +3,8 @@ import { ICommand } from "../interfaces/ICommand";
 import { Logger } from "../logging/Logger";
 import { CommandInput } from "../types/CommandInput";
 import { BaseCommand } from "./BaseCommand";
+import { TextToColorConverter } from "../helpers/TextToColorConverter";
+import chalk from "chalk";
 
 export class TableCommand extends BaseCommand implements ICommand{
     public async execute({ parameters }: CommandInput): Promise<void> {
@@ -34,8 +36,8 @@ export class TableCommand extends BaseCommand implements ICommand{
         const environments = await this.getAllPossibleEnvironmentNames()
 
         for(const subjectName of subjects){
-            const row = [
-                subjectName
+            const row: HorizontalTableRow = [
+                chalk.hex(TextToColorConverter.convert(subjectName)).bold(subjectName)
             ]
 
             for(const environmentName of environments){
@@ -56,8 +58,15 @@ export class TableCommand extends BaseCommand implements ICommand{
     }
 
     private async createTable(rows: HorizontalTableRow[]): Promise<Table.Table> {
+        const environments = await this.getAllPossibleEnvironmentNames()
+
         const table = new Table({
-            head: ['Subject', ...await this.getAllPossibleEnvironmentNames()]
+            head: ['Subject/Env', ...environments],
+            wordWrap: true,
+            colAligns: ['left', ...Array(environments.length).fill('center')],
+            style: {
+                head: ['white']
+            }        
         })
 
         table.push(...rows)
