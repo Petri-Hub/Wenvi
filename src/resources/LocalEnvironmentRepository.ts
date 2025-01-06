@@ -165,15 +165,15 @@ export class LocalEnvironmentRepository implements IRepository{
         fs.rmSync(path)
     }
 
-    private isExampleCreated(): boolean {
+    public async isExampleCreated(): Promise<boolean> {
         return fs.existsSync(this.getExamplePath())
     }
 
-    private isSubjectCreated(subject: string): boolean {
+    public async isSubjectCreated(subject: string): Promise<boolean> {
         return fs.existsSync(this.getSubjectPath(subject))
     }
 
-    private isEnvironmentCreated(subject: string, name: string): boolean {
+    public async isEnvironmentCreated(subject: string, name: string): Promise<boolean> {
         return fs.existsSync(this.getEnvironmentPath(subject, name))
     }
 

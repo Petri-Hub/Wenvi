@@ -12,4 +12,7 @@ export interface IRepository {
    deleteEnvironment(subjectName: string, environmentName: string): Promise<void>
    openSubject(subjectName: string): Promise<void>
    openEnvironment(subjectName: string, environmentName: string): Promise<void>
+   isSubjectCreated(subjectName: string): Promise<boolean>
+   isEnvironmentCreated(subjectName: string, environmentName: string): Promise<boolean>
+   isExampleCreated(): Promise<boolean>
 }
