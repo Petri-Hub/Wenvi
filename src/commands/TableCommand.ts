@@ -2,13 +2,15 @@ import { ICommand } from "../interfaces/ICommand";
 import { IRepository } from "../interfaces/IRepository";
 import { Logger } from "../logging/Logger";
 import { CommandInput } from "../types/CommandInput";
+import { BaseCommand } from "./BaseCommand";
 
-export class TableCommand implements ICommand{
-    public async execute({ repository, parameters }: CommandInput): Promise<void> {
+export class TableCommand extends BaseCommand implements ICommand{
+    public async execute({ parameters }: CommandInput): Promise<void> {
         const rows = []
 
-        const subjects = await this.handleCommandTargets(repository, parameters)
-        const possibleEnvironments = await this.getAllPossibleEnvironmentNames(repository)
+        const repository = this.getRepository()
+        const subjects = await this.handleCommandTargets(parameters)
+        const possibleEnvironments = await this.getAllPossibleEnvironmentNames()
 
         if(!subjects.length){
             Logger.log('You have no subjects to display.')
@@ -48,7 +50,9 @@ export class TableCommand implements ICommand{
         console.table(sortedRows, ['name', ...possibleEnvironments])
     }
 
-    private async handleCommandTargets(repository: IRepository, parameters: string[]): Promise<string[]> {
+    private async handleCommandTargets(parameters: string[]): Promise<string[]> {
+        const repository = this.getRepository()
+
         if(!parameters.length){
             return await repository.getSubjects()
         }
@@ -62,7 +66,8 @@ export class TableCommand implements ICommand{
         return targets
     }
 
-    private async getAllPossibleEnvironmentNames(repository: IRepository): Promise<string[]> {
+    private async getAllPossibleEnvironmentNames(): Promise<string[]> {
+        const repository = this.getRepository()
         const subjects = await repository.getSubjects()
         
         const allEnvironments = await Promise.all(subjects.map(subject => {

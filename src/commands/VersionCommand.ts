@@ -1,6 +1,4 @@
 import { ICommand } from "../interfaces/ICommand";
-import * as fs from 'fs';
-import * as path from 'path';
 import { Logger } from "../logging/Logger";
 import PackageJsonProvider from "../core/PackageJsonProvider";
 

@@ -5,9 +5,10 @@ import { ICommand } from "../interfaces/ICommand";
 import { Logger } from "../logging/Logger";
 import { CommandInput } from "../types/CommandInput";
 import clipboard from "clipboardy";
+import { BaseCommand } from "./BaseCommand";
 
-export class CopyCommand implements ICommand{
-    public async execute({ repository, parameters: [subjectName, environmentName] }: CommandInput): Promise<void> {
+export class CopyCommand extends BaseCommand implements ICommand{
+    public async execute({ parameters: [subjectName, environmentName] }: CommandInput): Promise<void> {
         if(!subjectName){
             throw new SubjectNotSpecifiedError()
         }
@@ -16,6 +17,7 @@ export class CopyCommand implements ICommand{
             throw new EnvironmentNotSpecifiedError()
         }
 
+        const repository = this.getRepository()
         const environment = await repository.getEnvironment(subjectName, environmentName)
 
         clipboard.writeSync(environment)
