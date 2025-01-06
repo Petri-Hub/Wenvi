@@ -55,11 +55,11 @@ export class LocalEnvironmentRepository implements IRepository{
     public async getEnvironment(subject: string, environment: string): Promise<string> {
         const path = this.getEnvironmentPath(subject, environment)
 
-        if(!this.isSubjectCreated(subject)){
+        if(!await this.isSubjectCreated(subject)){
             throw new SubjectNotFoundError()
         }
 
-        if(!this.isEnvironmentCreated(subject, environment)){
+        if(!await this.isEnvironmentCreated(subject, environment)){
             throw new EnvironmentNotFoundError()
         }
 
@@ -75,7 +75,7 @@ export class LocalEnvironmentRepository implements IRepository{
     public async openSubject(subject: string): Promise<void> {
         const path = this.getSubjectPath(subject)
 
-        if(!this.isSubjectCreated(subject)){
+        if(!await this.isSubjectCreated(subject)){
             throw new SubjectNotFoundError()
         }
 
@@ -85,11 +85,11 @@ export class LocalEnvironmentRepository implements IRepository{
     public async openEnvironment(subject: string, environment: string): Promise<void> {
         const path = this.getEnvironmentPath(subject, environment)
 
-        if(!this.isSubjectCreated(subject)){
+        if(!await this.isSubjectCreated(subject)){
             throw new SubjectNotFoundError()
         }
 
-        if(!this.isEnvironmentCreated(subject, environment)){
+        if(!await this.isEnvironmentCreated(subject, environment)){
             throw new EnvironmentNotFoundError()
         }
 
@@ -99,7 +99,7 @@ export class LocalEnvironmentRepository implements IRepository{
     public async getExample(): Promise<string> {
         const path = this.getExamplePath()
 
-        if(!this.isExampleCreated()){
+        if(!await this.isExampleCreated()){
             throw new ExampleNotFoundError()
         }
 
@@ -109,7 +109,7 @@ export class LocalEnvironmentRepository implements IRepository{
     public async createExample(): Promise<void> {
         const path = this.getExamplePath()
 
-        if(this.isExampleCreated()){
+        if(await this.isExampleCreated()){
             throw new ExampleAlreadyConfiguredError()
         }
 
@@ -119,7 +119,7 @@ export class LocalEnvironmentRepository implements IRepository{
     public async createSubject(subject: string): Promise<void> {
         const path = this.getSubjectPath(subject)
 
-        if(this.isSubjectCreated(subject)){
+        if(await this.isSubjectCreated(subject)){
             throw new SubjectAlreadyCreatedError()
         }
 
@@ -129,11 +129,11 @@ export class LocalEnvironmentRepository implements IRepository{
     public async createEnvironment(subjectName: string, environmentName: string, environment?: string): Promise<void> {
         const path = this.getEnvironmentPath(subjectName, environmentName)
 
-        if(!this.isSubjectCreated(subjectName)){
+        if(!await this.isSubjectCreated(subjectName)){
             this.createSubject(subjectName)
         }
 
-        if(this.isEnvironmentCreated(subjectName, environmentName)){
+        if(await this.isEnvironmentCreated(subjectName, environmentName)){
             throw new EnvironmentAlreadyCreatedError()
         }
 
@@ -143,7 +143,7 @@ export class LocalEnvironmentRepository implements IRepository{
     public async deleteSubject(subject: string): Promise<void> {
         const path = this.getSubjectPath(subject)
 
-        if(!this.isSubjectCreated(subject)){
+        if(!await this.isSubjectCreated(subject)){
             throw new SubjectNotFoundError()
         }
 
@@ -154,26 +154,26 @@ export class LocalEnvironmentRepository implements IRepository{
     public async deleteEnvironment(subject: string, environment: string): Promise<void> {
         const path = this.getEnvironmentPath(subject, environment)
 
-        if(!this.isSubjectCreated(subject)){
+        if(!await this.isSubjectCreated(subject)){
             throw new SubjectNotFoundError()
         }
 
-        if(!this.isEnvironmentCreated(subject, environment)){
+        if(!await this.isEnvironmentCreated(subject, environment)){
             throw new EnvironmentNotFoundError()
         }
 
         fs.rmSync(path)
     }
 
-    private isExampleCreated(): boolean {
+    public async isExampleCreated(): Promise<boolean> {
         return fs.existsSync(this.getExamplePath())
     }
 
-    private isSubjectCreated(subject: string): boolean {
+    public async isSubjectCreated(subject: string): Promise<boolean> {
         return fs.existsSync(this.getSubjectPath(subject))
     }
 
-    private isEnvironmentCreated(subject: string, name: string): boolean {
+    public async isEnvironmentCreated(subject: string, name: string): Promise<boolean> {
         return fs.existsSync(this.getEnvironmentPath(subject, name))
     }
 
