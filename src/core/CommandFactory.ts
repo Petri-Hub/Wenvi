@@ -15,7 +15,7 @@ import { VersionCommand } from "../commands/VersionCommand";
 import { ViewCommand } from "../commands/ViewCommand";
 import { CommandNotFoundError } from "../errors/CommandNotFoundError";
 import { ICommand } from "../interfaces/ICommand";
-import { CommandCreationPayload } from "../types/CommandCreationPayload";
+import { CommandRetrievalPayload } from "../types/CommandRetrievalPayload";
 
 export class CommandFactory{
 
@@ -37,33 +37,30 @@ export class CommandFactory{
         PING: 'ping'
     }
 
-    public get({ 
-        commandName, 
-        repository
-    }: CommandCreationPayload): ICommand {
+    public get({ commandName, ...payload }: CommandRetrievalPayload): ICommand {
         switch(commandName){
             case CommandFactory.COMMAND_KEYS.USE:
-                return new UseCommand()
+                return new UseCommand(payload)
             case CommandFactory.COMMAND_KEYS.INIT:
-                return new InitCommand()
+                return new InitCommand(payload)
             case CommandFactory.COMMAND_KEYS.OPEN:
-                return new OpenCommand()
+                return new OpenCommand(payload)
             case CommandFactory.COMMAND_KEYS.COPY:
-                return new CopyCommand()
+                return new CopyCommand(payload)
             case CommandFactory.COMMAND_KEYS.VIEW:
-                return new ViewCommand()
+                return new ViewCommand(payload)
             case CommandFactory.COMMAND_KEYS.CREATE:
-                return new CreateCommand()
+                return new CreateCommand(payload)
             case CommandFactory.COMMAND_KEYS.EXAMPLE:
-                return new ExampleCommand()
+                return new ExampleCommand(payload)
             case CommandFactory.COMMAND_KEYS.TABLE:
-                return new TableCommand()
+                return new TableCommand(payload)
             case CommandFactory.COMMAND_KEYS.DELETE:
-                return new DeleteCommand()
+                return new DeleteCommand(payload)
             case CommandFactory.COMMAND_KEYS.LIST:
-                return new ListCommand()
+                return new ListCommand(payload)
             case CommandFactory.COMMAND_KEYS.VALIDATE:
-                return new ValidateCommand()
+                return new ValidateCommand(payload)
             case CommandFactory.COMMAND_KEYS.VERSION:
                 return new VersionCommand()
             case CommandFactory.COMMAND_KEYS.UPGRADE:

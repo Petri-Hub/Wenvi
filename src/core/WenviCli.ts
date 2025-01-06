@@ -30,7 +30,6 @@ export class WenviCli{
             }
             
             return await command.execute({
-                repository,
                 parameters
             })
 
