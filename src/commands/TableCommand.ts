@@ -1,53 +1,68 @@
+import Table, { HorizontalTableRow } from "cli-table3";
 import { ICommand } from "../interfaces/ICommand";
-import { IRepository } from "../interfaces/IRepository";
 import { Logger } from "../logging/Logger";
 import { CommandInput } from "../types/CommandInput";
 import { BaseCommand } from "./BaseCommand";
 
 export class TableCommand extends BaseCommand implements ICommand{
     public async execute({ parameters }: CommandInput): Promise<void> {
-        const rows = []
 
-        const repository = this.getRepository()
         const subjects = await this.handleCommandTargets(parameters)
-        const possibleEnvironments = await this.getAllPossibleEnvironmentNames()
+        const environments = await this.getAllPossibleEnvironmentNames()
 
         if(!subjects.length){
             Logger.log('You have no subjects to display.')
             return
         }
 
-        if(!possibleEnvironments.length){
+        if(!environments.length){
             Logger.log('You have no environments to display.')
             return
         }
 
-        for(const subjectName of subjects){
-            const subjectEnvironments = await repository.getEnvironments(subjectName)
-            
-            const row: Record<string, any> = {
-                name: subjectName,
-                environments: 0
-            }
+        const rows = await this.createTableRows(parameters)
+        const table = await this.createTable(rows)
 
-            for(const environmentName of possibleEnvironments){
-                if(subjectEnvironments.includes(environmentName)){
-                    row[environmentName] = '✅'
-                    row['environments']++
-                } else {
-                    row[environmentName] = '❌'
-                }
+        Logger.log('Table of subjects and environments:')
+        console.log(table.toString())
+    }
+
+    private async createTableRows(parameters: string[]): Promise<HorizontalTableRow[]> {
+        const rows = []
+
+        const subjects = await this.handleCommandTargets(parameters)
+        const environments = await this.getAllPossibleEnvironmentNames()
+
+        for(const subjectName of subjects){
+            const row = [
+                subjectName
+            ]
+
+            for(const environmentName of environments){
+                const hasEnvironment = await this.getRepository().isEnvironmentCreated(
+                    subjectName,
+                    environmentName
+                )
+
+                hasEnvironment
+                    ? row.push('✅')
+                    : row.push('❌')
             }
 
             rows.push(row)
         }
 
-        const sortedRows = rows.sort((rowA, rowB) => {
-            return rowB.environments - rowA.environments 
+        return rows
+    }
+
+    private async createTable(rows: HorizontalTableRow[]): Promise<Table.Table> {
+        const table = new Table({
+            head: ['Subject', ...await this.getAllPossibleEnvironmentNames()]
         })
-    
-        Logger.log('Table of subjects and environments:')
-        console.table(sortedRows, ['name', ...possibleEnvironments])
+
+        table.push(...rows)
+
+        return table
     }
 
     private async handleCommandTargets(parameters: string[]): Promise<string[]> {
