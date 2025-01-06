@@ -1,9 +1,9 @@
-import { ExampleNotFoundError } from "../errors/ExampleNotConfiguredError";
 import { ICommand } from "../interfaces/ICommand";
-import { CommandInput } from "../types/CommandInput";
+import { BaseCommand } from "./BaseCommand";
 
-export class ValidateCommand implements ICommand{    
-    public async execute({ repository }: CommandInput): Promise<void> {
+export class ValidateCommand extends BaseCommand implements ICommand{    
+    public async execute(): Promise<void> {
+        const repository = this.getRepository()
         const example = await repository.getExample()
 
         const variables = example

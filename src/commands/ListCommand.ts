@@ -3,11 +3,12 @@ import { Logger } from "../logging/Logger";
 import { CommandInput } from "../types/CommandInput";
 import chalk from 'chalk'
 import { TextToColorConverter } from '../helpers/TextToColorConverter'
-import { IRepository } from "../interfaces/IRepository";
+import { BaseCommand } from "./BaseCommand";
 
-export class ListCommand implements ICommand {
-    public async execute({ repository, parameters }: CommandInput): Promise<void> {
-        const subjects = await this.handleCommandTargets(repository, parameters)
+export class ListCommand extends BaseCommand implements ICommand {
+    public async execute({ parameters }: CommandInput): Promise<void> {
+        const repository = this.getRepository()
+        const subjects = await this.handleCommandTargets(parameters)
         const hasNoSubjects = subjects.length === 0
         
         if(hasNoSubjects){
@@ -38,7 +39,9 @@ export class ListCommand implements ICommand {
         }
     }
 
-    private async handleCommandTargets(repository: IRepository, parameters: string[]): Promise<string[]> { 
+    private async handleCommandTargets(parameters: string[]): Promise<string[]> { 
+        const repository = this.getRepository()
+        
         if(!parameters.length){
             return await repository.getSubjects()
         }

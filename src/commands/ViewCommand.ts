@@ -4,9 +4,10 @@ import { Logger } from "../logging/Logger";
 import { CommandInput } from "../types/CommandInput";
 import { SubjectNotSpecifiedError } from "../errors/SubjectNotSpecifiedError";
 import { EnvironmentNotSpecifiedError } from "../errors/EnvironmentNotSpecifiedError";
+import { BaseCommand } from "./BaseCommand";
 
-export class ViewCommand implements ICommand{
-    public async execute({ repository, parameters: [subjectName, environmentName] }: CommandInput): Promise<void> {
+export class ViewCommand extends BaseCommand implements ICommand{
+    public async execute({ parameters: [subjectName, environmentName] }: CommandInput): Promise<void> {
         if(!subjectName){
             throw new SubjectNotSpecifiedError()
         }
@@ -14,6 +15,7 @@ export class ViewCommand implements ICommand{
             throw new EnvironmentNotSpecifiedError()
         }
         
+        const repository = this.getRepository()
         const variables = await repository.getEnvironment(subjectName, environmentName)
         const isEmpty = variables.replace(/[^A-Za-z0-9=]/gi, '').length === 0
 

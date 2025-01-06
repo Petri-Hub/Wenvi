@@ -1,32 +1,35 @@
-import { CommandRegistry } from "./CommandRegistry"
 import { BaseError } from "../errors/BaseError"
 import { CommandNotFoundError } from "../errors/CommandNotFoundError"
 import { RepositoryRegistry } from "./RepositoryRegistry"
 import { RepositoryNotFoundError } from "../errors/RepositoryNotFoundError"
 import { Logger } from "../logging/Logger"
+import { CommandFactory } from "./CommandFactory"
 
 export class WenviCli{
     constructor(
-        private commands: CommandRegistry,
+        private commands: CommandFactory,
         private repositories: RepositoryRegistry
     ) {}
     
     public async run([,, commandName, ...parameters]: string[]): Promise<void> {
         try{
 
-            const command = this.commands.get(commandName)
             const repository = this.repositories.get('local')
-            
-            if(!command){
-                throw new CommandNotFoundError()
-            }
 
             if(!repository){
                 throw new RepositoryNotFoundError()
             }
 
+            const command = this.commands.get({ 
+                commandName, 
+                repository
+            })
+            
+            if(!command){
+                throw new CommandNotFoundError()
+            }
+            
             return await command.execute({
-                repository,
                 parameters
             })
 
