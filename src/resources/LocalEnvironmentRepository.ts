@@ -126,18 +126,18 @@ export class LocalEnvironmentRepository implements IRepository{
         fs.mkdirSync(path)
     }
 
-    public async createEnvironment(subject: string, environment: string): Promise<void> {
-        const path = this.getEnvironmentPath(subject, environment)
+    public async createEnvironment(subjectName: string, environmentName: string, environment?: string): Promise<void> {
+        const path = this.getEnvironmentPath(subjectName, environmentName)
 
-        if(!this.isSubjectCreated(subject)){
-            this.createSubject(subject)
+        if(!this.isSubjectCreated(subjectName)){
+            this.createSubject(subjectName)
         }
 
-        if(this.isEnvironmentCreated(subject, environment)){
+        if(this.isEnvironmentCreated(subjectName, environmentName)){
             throw new EnvironmentAlreadyCreatedError()
         }
 
-        fs.writeFileSync(path, '')
+        fs.writeFileSync(path, environment ?? '')
     }
 
     public async deleteSubject(subject: string): Promise<void> {

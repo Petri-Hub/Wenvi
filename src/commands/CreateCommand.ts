@@ -6,13 +6,13 @@ import { CommandInput } from "../types/CommandInput";
 import { SubjectNotSpecifiedError } from "../errors/SubjectNotSpecifiedError";
 
 export class CreateCommand implements ICommand{
-    public async execute({ repository, parameters: [subjectName, environmentName]}: CommandInput): Promise<void> {
+    public async execute({ repository, parameters: [subjectName, environmentName, environment]}: CommandInput): Promise<void> {
         if(!subjectName){
             throw new SubjectNotSpecifiedError()
         }
 
         environmentName
-            ? await this.createEnvironment(repository, subjectName, environmentName)
+            ? await this.createEnvironment(repository, subjectName, environmentName, environment)
             : await this.createSubject(repository, subjectName)
     }
 
@@ -21,9 +21,9 @@ export class CreateCommand implements ICommand{
 
         Logger.success(`Subject ${chalk.bold.underline(subjectName)} created successfully.`);
     }
-
-    public async createEnvironment(repository: IRepository, subjectName: string, environmentName: string): Promise<void> {
-        await repository.createEnvironment(subjectName, environmentName);
+    
+    public async createEnvironment(repository: IRepository, subjectName: string, environmentName: string, environment?: string): Promise<void> {
+        await repository.createEnvironment(subjectName, environmentName, environment);
 
         Logger.success(`Environment ${chalk.bold.underline(environmentName)} created successfully for subject ${chalk.bold.underline(subjectName)}.`);
     }
