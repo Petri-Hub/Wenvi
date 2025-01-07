@@ -19,7 +19,17 @@ export class ExportCommand extends BaseCommand implements ICommand{
     }
 
     private async promptPasswordToUser(): Promise<string> {
-        return "123"
+        Logger.log('Please type the password to encrypt the environments:\n')
+
+        const result = await prompt.get({
+            allowEmpty: false,
+            description: 'password',
+            replace: '*',
+            required: true,
+            hidden: true,
+        })
+
+        return result.question as string
     }
 
     private async getAllEnvironments(): Promise<ExportedEnvironment[]> {
