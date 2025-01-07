@@ -2,7 +2,7 @@ import open from "open";
 import { EnvironmentAlreadyCreatedError } from "../errors/EnvironmentAlreadyCreatedError";
 import { EnvironmentNotFoundError } from "../errors/EnvironmentNotFoundError";
 import { ExampleAlreadyConfiguredError } from "../errors/ExampleAlreadyConfiguredError";
-import { ExampleNotFoundError } from "../errors/ExampleNotConfiguredError";
+import { ExampleNotFoundError } from "../errors/ExampleNotFoundError";
 import { SubjectAlreadyCreatedError } from "../errors/SubjectAlreadyCreatedError";
 import { SubjectNotFoundError } from "../errors/SubjectNotFoundError";
 import { IRepository } from "../interfaces/IRepository";
