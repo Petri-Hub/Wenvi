@@ -26,9 +26,11 @@
     "typescript": "^5.7.2"
   },
   "dependencies": {
+    "@types/crypto-js": "^4.2.2",
     "chalk": "4.1.2",
     "cli-table3": "^0.6.5",
     "clipboardy": "2.3.0",
+    "crypto-js": "^4.2.0",
     "fs-extra": "^11.2.0",
     "open": "7"
   }
