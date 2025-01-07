@@ -86,6 +86,19 @@
   dependencies:
     undici-types "~6.20.0"
 
+"@types/prompt@^1.1.9":
+  version "1.1.9"
+  resolved "https://registry.yarnpkg.com/@types/prompt/-/prompt-1.1.9.tgz#4a4de1cf44517387ab190085c4117957acc5703f"
+  integrity sha512-Yl0hzOWGDNCo2JHA8s7g7e9higzonlP/MssTMAIAwYmA7GugrB5WZ1DmrfrpJyJY8Y5UHFr8uaXDlxiyHt2jbg==
+  dependencies:
+    "@types/node" "*"
+    "@types/revalidator" "*"
+
+"@types/revalidator@*":
+  version "0.3.12"
+  resolved "https://registry.yarnpkg.com/@types/revalidator/-/revalidator-0.3.12.tgz#fe6f6f9479fa2619a3352a02aa6ad102216c37a8"
+  integrity sha512-DsA2jHfz73JaIROVoMDd/x7nVWXBmEdDSoXB4yQlDzv/NCBkFY2fMHkyE6DGrvooLDAFe5QI6l9Wq0TgdopMtg==
+
 acorn-walk@^8.1.1:
   version "8.3.4"
   resolved "https://registry.yarnpkg.com/acorn-walk/-/acorn-walk-8.3.4.tgz#794dd169c3977edf4ba4ea47583587c5866236b7"

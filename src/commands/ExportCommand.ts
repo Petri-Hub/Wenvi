@@ -5,6 +5,7 @@ import { BaseCommand } from "./BaseCommand";
 import CryptoJS from 'crypto-js'
 import fs from 'fs-extra'
 import path from 'path'
+import prompt from 'prompt'
 
 export class ExportCommand extends BaseCommand implements ICommand{
     public async execute(): Promise<void> {

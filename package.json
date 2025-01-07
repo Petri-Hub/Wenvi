@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@types/crypto-js": "^4.2.2",
+    "@types/prompt": "^1.1.9",
     "chalk": "4.1.2",
     "cli-table3": "^0.6.5",
     "clipboardy": "2.3.0",
