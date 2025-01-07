@@ -1,4 +1,5 @@
 import { ICommand } from "../interfaces/ICommand";
+import { Logger } from "../logging/Logger";
 import { ExportedEnvironment } from "../types/ExportedEnvironment";
 import { BaseCommand } from "./BaseCommand";
 import CryptoJS from 'crypto-js'
@@ -12,6 +13,8 @@ export class ExportCommand extends BaseCommand implements ICommand{
         const file = await this.encryptAllEnviroments(environments, password)
 
         await this.createEncryptedFile(file)
+
+        Logger.success('Environments exported sucessfully at .wenvi file')
     }
 
     private async promptPasswordToUser(): Promise<string> {
