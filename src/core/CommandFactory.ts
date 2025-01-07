@@ -8,7 +8,7 @@ import { ListCommand } from "../commands/ListCommand";
 import { OpenCommand } from "../commands/OpenCommand";
 import { PingCommand } from "../commands/PingCommand";
 import { TableCommand } from "../commands/TableCommand";
-import { UpgradeCommand } from "../commands/UpdateCommand";
+import { UpgradeCommand } from "../commands/UpgradeCommand";
 import { UseCommand } from "../commands/UseCommand";
 import { ValidateCommand } from "../commands/ValidateCommand";
 import { VersionCommand } from "../commands/VersionCommand";
