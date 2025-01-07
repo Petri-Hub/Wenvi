@@ -20,7 +20,6 @@ export class UseCommand extends BaseCommand implements ICommand{
         const environment = await repository.getEnvironment(subjectName, environmentName)
         
         fs.writeFileSync(process.cwd() + '/.env', environment)
-
         Logger.success(`Using ${chalk.bold.underline(subjectName)} in ${chalk.bold.underline(environmentName)} environment`)
     }
 }

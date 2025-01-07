@@ -21,7 +21,6 @@ export class CopyCommand extends BaseCommand implements ICommand{
         const environment = await repository.getEnvironment(subjectName, environmentName)
 
         clipboard.writeSync(environment)
-
         Logger.success(`Copied environment ${chalk.underline.bold(environmentName)} for subject ${chalk.underline.bold(subjectName)} to clipboard`)
     }
 }

@@ -3,6 +3,7 @@ import { CreateCommand } from "../commands/CreateCommand";
 import { DeleteCommand } from "../commands/DeleteCommand";
 import { DocsCommand } from "../commands/DocsCommand";
 import { ExampleCommand } from "../commands/ExampleCommand";
+import { ExportCommand } from "../commands/ExportCommand";
 import { InitCommand } from "../commands/InitCommand";
 import { ListCommand } from "../commands/ListCommand";
 import { OpenCommand } from "../commands/OpenCommand";
@@ -31,6 +32,7 @@ export class CommandFactory{
         DELETE: 'delete',
         LIST: 'list',
         VALIDATE: 'validate',
+        EXPORT: 'export',
         VERSION: 'version',
         UPGRADE: 'upgrade',
         DOCS: 'docs',
@@ -61,6 +63,8 @@ export class CommandFactory{
                 return new ListCommand(payload)
             case CommandFactory.COMMAND_KEYS.VALIDATE:
                 return new ValidateCommand(payload)
+            case CommandFactory.COMMAND_KEYS.EXPORT:
+                return new ExportCommand(payload)
             case CommandFactory.COMMAND_KEYS.VERSION:
                 return new VersionCommand()
             case CommandFactory.COMMAND_KEYS.UPGRADE:
