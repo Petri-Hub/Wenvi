@@ -13,5 +13,6 @@ export enum ErrorMessages {
     ExampleAlreadyConfigured = "The example file is already configured.",
     SubjectNotFound = "The subject was not found.",
     EnvironmentNotFound = "The environment was not found.",
-    RepositoryAlreadyCreated = 'The repository already exists.'
+    RepositoryAlreadyCreated = 'The repository already exists.',
+    VariablesNotSpecified = 'The variables were not specified.'
 }
