@@ -1,7 +1,7 @@
 export type PackageJson = {
-    version: string,
-    repository: {
-        type: string,
-        url: string
-    } 
+   version: string
+   repository: {
+      type: string
+      url: string
+   }
 }

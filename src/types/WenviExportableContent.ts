@@ -1,6 +1,6 @@
-import { ExportedEnvironment } from "./ExportedEnvironment"
+import { ExportedEnvironment } from './ExportedEnvironment'
 
 export type WenviExportableContent = {
-    example: string,
-    environments: ExportedEnvironment[]
+   example: string
+   environments: ExportedEnvironment[]
 }

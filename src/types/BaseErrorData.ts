@@ -1,5 +1,5 @@
 export type BaseErrorData = {
-    code: number,
-    message: string,
-    error: unknown
+   code: number
+   message: string
+   error: unknown
 }
