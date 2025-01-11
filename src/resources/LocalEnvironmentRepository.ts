@@ -9,6 +9,7 @@ import { IRepository } from "../interfaces/IRepository";
 import fs from 'fs-extra'
 import path from 'path'
 import { RepositoryAlreadyCreated } from "../errors/RepositoryAlreadyCreated";
+import { VariableNotFoundError } from "../errors/VariableNotFoundError";
 
 export class LocalEnvironmentRepository implements IRepository{
     constructor(
@@ -126,7 +127,7 @@ export class LocalEnvironmentRepository implements IRepository{
         fs.mkdirSync(path)
     }
 
-    public async createEnvironment(subjectName: string, environmentName: string, environment?: string): Promise<void> {
+    public async createEnvironment(subjectName: string, environmentName: string, variables?: string): Promise<void> {
         const path = this.getEnvironmentPath(subjectName, environmentName)
 
         if(!await this.isSubjectCreated(subjectName)){
@@ -137,10 +138,10 @@ export class LocalEnvironmentRepository implements IRepository{
             throw new EnvironmentAlreadyCreatedError()
         }
 
-        fs.writeFileSync(path, environment ?? '')
+        fs.writeFileSync(path, variables ?? '')
     }
 
-    public async updateEnvironment(subjectName: string, environmentName: string, environment?: string): Promise<void> {
+    public async updateEnvironment(subjectName: string, environmentName: string, variables?: string): Promise<void> {
         const path = this.getEnvironmentPath(subjectName, environmentName)
 
         if(!await this.isSubjectCreated(subjectName)){
@@ -151,7 +152,7 @@ export class LocalEnvironmentRepository implements IRepository{
             throw new EnvironmentNotFoundError()
         }
 
-        fs.writeFileSync(path, environment ?? '')
+        fs.writeFileSync(path, variables ?? '')
     }
 
     public async deleteSubject(subject: string): Promise<void> {
@@ -177,6 +178,64 @@ export class LocalEnvironmentRepository implements IRepository{
         }
 
         fs.rmSync(path)
+    }
+
+    public async getKey(subjectName: string, environmentName: string, key: string): Promise<string | null> {
+        const environment = await this.getEnvironment(subjectName, environmentName)
+
+        const variables = environment
+            .split('\n')
+            .map(line => line.trim())
+
+        const variable = variables.find(variable => {
+            return variable.startsWith(key)
+        })
+
+        if(!variable){
+            throw new VariableNotFoundError()
+        }
+
+        return variable.split('=')[1] ?? null
+    }
+
+    public async updateKey(subjectName: string, environmentName: string, key: string, value: string): Promise<void> {
+        const environment = await this.getEnvironment(subjectName, environmentName)
+
+        const variables = environment
+            .split('\n')
+            .map(line => line.trim())
+
+        const variableIndex = variables.findIndex(variable => {
+            return variable.startsWith(key)
+        })
+
+        if(variableIndex === -1){
+            variables[variables.length] = `${key}=${value}`
+        } else {
+            variables[variableIndex] = `${key}=${value}`
+        }
+
+        this.updateEnvironment(subjectName, environmentName, variables.join('\n'))
+    }
+
+    public async deleteKey(subjectName: string, environmentName: string, variableKey: string): Promise<void> {
+        const environment = await this.getEnvironment(subjectName, environmentName)
+
+        const variables = environment
+            .split('\n')
+            .map(line => line.trim())
+
+        const variableIndex = variables.findIndex(variable => {
+            return variable.startsWith(variableKey)
+        })
+
+        if(variableIndex === -1){
+            throw new VariableNotFoundError()
+        }
+
+        variables.splice(variableIndex, 1)
+
+        this.updateEnvironment(subjectName, environmentName, variables.join('\n'))
     }
 
     public async isExampleCreated(): Promise<boolean> {
