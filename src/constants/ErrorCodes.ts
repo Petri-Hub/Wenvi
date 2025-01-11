@@ -17,5 +17,7 @@ export enum ErrorCodes {
     VariablesNotSpecified,
     CurrentEnvironmentNotSet,
     VariableNotSpecified,
-    VariableNotFound
+    VariableNotFound,
+    ExportedFileNotFound,
+    ExportedFileDecryption
 }
