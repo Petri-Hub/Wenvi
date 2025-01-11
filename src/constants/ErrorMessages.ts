@@ -14,5 +14,6 @@ export enum ErrorMessages {
     SubjectNotFound = "The subject was not found.",
     EnvironmentNotFound = "The environment was not found.",
     RepositoryAlreadyCreated = 'The repository already exists.',
-    VariablesNotSpecified = 'The variables were not specified.'
+    VariablesNotSpecified = 'The variables were not specified.',
+    CurrentEnvironmentNotSet = 'The current environment is not set.'
 }
