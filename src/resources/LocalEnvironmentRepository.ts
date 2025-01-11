@@ -140,6 +140,20 @@ export class LocalEnvironmentRepository implements IRepository{
         fs.writeFileSync(path, environment ?? '')
     }
 
+    public async updateEnvironment(subjectName: string, environmentName: string, environment?: string): Promise<void> {
+        const path = this.getEnvironmentPath(subjectName, environmentName)
+
+        if(!await this.isSubjectCreated(subjectName)){
+            throw new SubjectNotFoundError()
+        }
+
+        if(!await this.isEnvironmentCreated(subjectName, environmentName)){
+            throw new EnvironmentNotFoundError()
+        }
+
+        fs.writeFileSync(path, environment ?? '')
+    }
+
     public async deleteSubject(subject: string): Promise<void> {
         const path = this.getSubjectPath(subject)
 

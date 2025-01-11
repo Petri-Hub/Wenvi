@@ -13,5 +13,6 @@ export enum ErrorCodes {
     ExampleAlreadyConfigured,
     SubjectNotFound,
     EnvironmentNotFound,
-    RepositoryAlreadyCreated
+    RepositoryAlreadyCreated,
+    VariablesNotSpecified
 }
