@@ -17,5 +17,7 @@ export enum ErrorMessages {
     VariablesNotSpecified = 'The variables were not specified.',
     CurrentEnvironmentNotSet = 'The current environment is not set.',
     VariableNotSpecified = 'The variable was not specified.',
-    VariableNotFound = 'The variable was not found.'
+    VariableNotFound = 'The variable was not found.',
+    ExportedFileNotFound = 'The exported file was not found.',
+    ExportedFileDecryption = 'An error ocurred while decrypting the exported file.'
 }

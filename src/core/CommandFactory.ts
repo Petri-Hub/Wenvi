@@ -7,6 +7,7 @@ import { DocsCommand } from "../commands/DocsCommand";
 import { ExampleCommand } from "../commands/ExampleCommand";
 import { ExportCommand } from "../commands/ExportCommand";
 import { GetKeyCommand } from "../commands/GetKeyCommand";
+import { ImportCommand } from "../commands/ImportCommand";
 import { InitCommand } from "../commands/InitCommand";
 import { ListCommand } from "../commands/ListCommand";
 import { OpenCommand } from "../commands/OpenCommand";
@@ -43,6 +44,7 @@ export class CommandFactory{
         LIST: 'list',
         VALIDATE: 'validate',
         EXPORT: 'export',
+        IMPORT: 'import',
         VERSION: 'version',
         UPGRADE: 'upgrade',
         DOCS: 'docs',
@@ -85,6 +87,8 @@ export class CommandFactory{
                 return new ValidateCommand(payload)
             case CommandFactory.COMMAND_KEYS.EXPORT:
                 return new ExportCommand(payload)
+            case CommandFactory.COMMAND_KEYS.IMPORT:
+                return new ImportCommand(payload)
             case CommandFactory.COMMAND_KEYS.VERSION:
                 return new VersionCommand()
             case CommandFactory.COMMAND_KEYS.UPGRADE:
