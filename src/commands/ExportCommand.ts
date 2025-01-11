@@ -1,6 +1,7 @@
 import { ICommand } from "../interfaces/ICommand";
 import { Logger } from "../logging/Logger";
 import { ExportedEnvironment } from "../types/ExportedEnvironment";
+import { WenviExportableContent as WenviExportableData } from "../types/WenviExportableContent";
 import { BaseCommand } from "./BaseCommand";
 import CryptoJS from 'crypto-js'
 import fs from 'fs-extra'
@@ -10,8 +11,8 @@ import prompt from 'prompt'
 export class ExportCommand extends BaseCommand implements ICommand{
     public async execute(): Promise<void> {
         const password = await this.promptPasswordToUser()
-        const environments = await this.getAllEnvironments()
-        const file = await this.encryptAllEnviroments(environments, password)
+        const data = await this.getExportableContent()
+        const file = await this.encryptExportedData(data, password)
 
         await this.createEncryptedFile(file)
 
@@ -32,6 +33,21 @@ export class ExportCommand extends BaseCommand implements ICommand{
         return result.question as string
     }
 
+    private async getExportableContent(): Promise<WenviExportableData> {
+        const repository = this.getRepository()
+
+        const data: WenviExportableData = {
+            example: '',
+            environments: await this.getAllEnvironments()
+        }
+
+        if(await repository.isExampleCreated()){
+            data.example = await repository.getExample()
+        }
+
+        return data
+    }
+
     private async getAllEnvironments(): Promise<ExportedEnvironment[]> {
         const exportedEnvironments: ExportedEnvironment[] = []
         const repository = this.getRepository()
@@ -49,9 +65,10 @@ export class ExportCommand extends BaseCommand implements ICommand{
         return exportedEnvironments
     }
 
-    private async encryptAllEnviroments(environments: ExportedEnvironment[], password: string): Promise<string> {
-        const data = JSON.stringify(environments)
-        const encrypted = CryptoJS.AES.encrypt(data, password).toString()
+    private async encryptExportedData(data: WenviExportableData, password: string): Promise<string> {
+        const encrypted = CryptoJS.AES
+            .encrypt(JSON.stringify(data), password)
+            .toString()
 
         return encrypted
     }
