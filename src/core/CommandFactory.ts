@@ -2,15 +2,18 @@ import { CopyCommand } from "../commands/CopyCommand";
 import { CreateCommand } from "../commands/CreateCommand";
 import { CurrentCommand } from "../commands/CurrentCommand";
 import { DeleteCommand } from "../commands/DeleteCommand";
+import { DeleteKeyCommand } from "../commands/DeleteKeyCommand";
 import { DocsCommand } from "../commands/DocsCommand";
 import { ExampleCommand } from "../commands/ExampleCommand";
 import { ExportCommand } from "../commands/ExportCommand";
+import { GetKeyCommand } from "../commands/GetKeyCommand";
 import { InitCommand } from "../commands/InitCommand";
 import { ListCommand } from "../commands/ListCommand";
 import { OpenCommand } from "../commands/OpenCommand";
 import { PingCommand } from "../commands/PingCommand";
 import { TableCommand } from "../commands/TableCommand";
 import { UpdateCommad } from "../commands/UpdateCommand";
+import { UpdateKeyCommand } from "../commands/UpdateKeyCommand";
 import { UpgradeCommand } from "../commands/UpgradeCommand";
 import { UseCommand } from "../commands/UseCommand";
 import { ValidateCommand } from "../commands/ValidateCommand";
@@ -28,6 +31,9 @@ export class CommandFactory{
         CURRENT: 'current',
         OPEN: 'open',
         COPY: 'copy',
+        GET_KEY: 'get-key',
+        UPDATE_KEY: 'update-key',
+        DELETE_KEY: 'delete-key',
         VIEW: 'view',
         CREATE: 'create',
         UPDATE: 'update',
@@ -61,6 +67,12 @@ export class CommandFactory{
                 return new CreateCommand(payload)
             case CommandFactory.COMMAND_KEYS.UPDATE:
                 return new UpdateCommad(payload)
+            case CommandFactory.COMMAND_KEYS.GET_KEY:
+                return new GetKeyCommand(payload)
+            case CommandFactory.COMMAND_KEYS.UPDATE_KEY:
+                return new UpdateKeyCommand(payload)
+            case CommandFactory.COMMAND_KEYS.DELETE_KEY:
+                return new DeleteKeyCommand(payload)
             case CommandFactory.COMMAND_KEYS.EXAMPLE:
                 return new ExampleCommand(payload)
             case CommandFactory.COMMAND_KEYS.TABLE:

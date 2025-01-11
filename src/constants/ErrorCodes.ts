@@ -15,5 +15,7 @@ export enum ErrorCodes {
     EnvironmentNotFound,
     RepositoryAlreadyCreated,
     VariablesNotSpecified,
-    CurrentEnvironmentNotSet
+    CurrentEnvironmentNotSet,
+    VariableNotSpecified,
+    VariableNotFound
 }
