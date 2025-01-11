@@ -10,6 +10,8 @@ import fs from 'fs-extra'
 import path from 'path'
 import { RepositoryAlreadyCreated } from "../errors/RepositoryAlreadyCreated";
 import { VariableNotFoundError } from "../errors/VariableNotFoundError";
+import { WenviExportableContent } from "../types/WenviExportableContent";
+import { ExportedEnvironment } from "../types/ExportedEnvironment";
 
 export class LocalEnvironmentRepository implements IRepository{
     constructor(
@@ -107,14 +109,24 @@ export class LocalEnvironmentRepository implements IRepository{
         return fs.readFileSync(path, 'utf-8')
     }
 
-    public async createExample(): Promise<void> {
+    public async createExample(variables?: string): Promise<void> {
         const path = this.getExamplePath()
 
         if(await this.isExampleCreated()){
             throw new ExampleAlreadyConfiguredError()
         }
 
-        fs.writeFileSync(path, '')
+        fs.writeFileSync(path, variables ?? '')
+    }
+
+    public async updateExample(variables?: string): Promise<void> {
+        const path = this.getExamplePath()
+
+        if(!await this.isExampleCreated()){
+            throw new ExampleNotFoundError()
+        }
+
+        fs.writeFileSync(path, variables ?? '')
     }
 
     public async createSubject(subject: string): Promise<void> {
@@ -236,6 +248,31 @@ export class LocalEnvironmentRepository implements IRepository{
         variables.splice(variableIndex, 1)
 
         this.updateEnvironment(subjectName, environmentName, variables.join('\n'))
+    }
+
+    public async load({ example, environments }: WenviExportableContent): Promise<void> {
+        if(!await this.exists()){
+            await this.init()
+        }
+
+        if(example){
+            if(await this.isExampleCreated()){
+                await this.updateExample(example)
+            } else {
+                await this.createExample(example)
+            }
+        }
+
+        for(const environment of environments){
+            const isCreated = await this.isEnvironmentCreated(environment.subject, environment.environment)
+
+            if(isCreated){
+                await this.updateEnvironment(environment.subject, environment.environment, environment.content)
+                continue
+            }
+
+            await this.createEnvironment(environment.subject, environment.environment, environment.content)
+        }
     }
 
     public async isExampleCreated(): Promise<boolean> {

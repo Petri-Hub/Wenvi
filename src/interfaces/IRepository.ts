@@ -1,3 +1,5 @@
+import { WenviExportableContent } from "../types/WenviExportableContent"
+
 export interface IRepository {
    init(): Promise<void>
    exists(): Promise<boolean>
@@ -5,7 +7,8 @@ export interface IRepository {
    getEnvironments(subjectName: string): Promise<string[]>
    getEnvironment(subjectName: string, environmentName: string): Promise<string>
    getExample(): Promise<string>
-   createExample(): Promise<void>
+   createExample(variables?: string): Promise<void>
+   updateExample(variables?: string): Promise<void>
    createSubject(subjectName: string): Promise<void>
    createEnvironment(subjectName: string, environmentName: string, variables?: string): Promise<void>
    updateEnvironment(subjectName: string, environmentName: string, variables?: string): Promise<void>
@@ -19,4 +22,5 @@ export interface IRepository {
    getKey(subjectName: string, environmentName: string, variableKey: string): Promise<string | null>
    updateKey(subjectName: string, environmentName: string, variableKey: string, variableValue: string): Promise<void>
    deleteKey(subjectName: string, environmentName: string, variableKey: string): Promise<void>
+   load(data: WenviExportableContent): Promise<void>
 }
