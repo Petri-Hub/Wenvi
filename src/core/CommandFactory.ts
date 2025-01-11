@@ -7,6 +7,7 @@ import { DocsCommand } from '../commands/DocsCommand'
 import { ExampleCommand } from '../commands/ExampleCommand'
 import { ExportCommand } from '../commands/ExportCommand'
 import { GetKeyCommand } from '../commands/GetKeyCommand'
+import { HelpCommand } from '../commands/HelpCommand'
 import { ImportCommand } from '../commands/ImportCommand'
 import { InitCommand } from '../commands/InitCommand'
 import { ListCommand } from '../commands/ListCommand'
@@ -47,7 +48,8 @@ export class CommandFactory {
       VERSION: 'version',
       UPGRADE: 'upgrade',
       DOCS: 'docs',
-      PING: 'ping'
+      PING: 'ping',
+      HELP: 'help'
    }
 
    public get({
@@ -99,6 +101,8 @@ export class CommandFactory {
             return new DocsCommand()
          case CommandFactory.COMMAND_KEYS.PING:
             return new PingCommand()
+         case CommandFactory.COMMAND_KEYS.HELP:
+            return new HelpCommand()
          default:
             throw new CommandNotFoundError()
       }
