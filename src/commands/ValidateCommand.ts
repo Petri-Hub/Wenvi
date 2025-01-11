@@ -1,13 +1,13 @@
 import Table from 'cli-table3'
 import { HorizontalTableRow } from "cli-table3";
-import { ICommand } from "../interfaces/ICommand";
+import { IExecutableCommand } from "../interfaces/ICommand";
 import { BaseCommand } from "./BaseCommand";
 import { EnvironmentValidation } from "../types/EnvironmentValidation";
 import { Logger } from "../logging/Logger";
 import chalk from 'chalk';
 import { TextToColorConverter } from '../helpers/TextToColorConverter';
 
-export class ValidateCommand extends BaseCommand implements ICommand{    
+export class ValidateCommand extends BaseCommand implements IExecutableCommand{    
     public async execute(): Promise<void> {
 
         const rows = await this.createRows()

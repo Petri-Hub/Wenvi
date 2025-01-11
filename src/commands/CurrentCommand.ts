@@ -1,10 +1,10 @@
 import { BaseCommand } from "./BaseCommand";
-import { ICommand } from "../interfaces/ICommand";
+import { IExecutableCommand } from "../interfaces/ICommand";
 import { Logger } from "../logging/Logger";
 import { CurrentEnvironmentNotSetError } from "../errors/CurrentEnvironmentNotSetError";
 import fs from 'fs-extra'
 
-export class CurrentCommand extends BaseCommand implements ICommand{
+export class CurrentCommand extends BaseCommand implements IExecutableCommand{
     public async execute(): Promise<void> {
         const environmentPath = process.cwd() + '/.env'
         const isEnvironmentMissing = !fs.existsSync(environmentPath)

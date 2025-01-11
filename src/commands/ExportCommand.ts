@@ -1,4 +1,4 @@
-import { ICommand } from "../interfaces/ICommand";
+import { IExecutableCommand } from "../interfaces/ICommand";
 import { Logger } from "../logging/Logger";
 import { ExportedEnvironment } from "../types/ExportedEnvironment";
 import { WenviExportableContent as WenviExportableData } from "../types/WenviExportableContent";
@@ -8,7 +8,7 @@ import fs from 'fs-extra'
 import path from 'path'
 import prompt from 'prompt'
 
-export class ExportCommand extends BaseCommand implements ICommand{
+export class ExportCommand extends BaseCommand implements IExecutableCommand{
     public async execute(): Promise<void> {
         const password = await this.promptPasswordToUser()
         const data = await this.getExportableContent()

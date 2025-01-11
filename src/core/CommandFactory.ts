@@ -21,7 +21,7 @@ import { ValidateCommand } from "../commands/ValidateCommand";
 import { VersionCommand } from "../commands/VersionCommand";
 import { ViewCommand } from "../commands/ViewCommand";
 import { CommandNotFoundError } from "../errors/CommandNotFoundError";
-import { ICommand } from "../interfaces/ICommand";
+import { IExecutableCommand } from "../interfaces/ICommand";
 import { CommandRetrievalPayload } from "../types/CommandRetrievalPayload";
 
 export class CommandFactory{
@@ -51,7 +51,7 @@ export class CommandFactory{
         PING: 'ping'
     }
 
-    public get({ commandName, ...payload }: CommandRetrievalPayload): ICommand {
+    public get({ commandName, ...payload }: CommandRetrievalPayload): IExecutableCommand {
         switch(commandName){
             case CommandFactory.COMMAND_KEYS.USE:
                 return new UseCommand(payload)

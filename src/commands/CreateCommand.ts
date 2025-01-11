@@ -1,11 +1,11 @@
 import chalk from "chalk";
-import { ICommand } from "../interfaces/ICommand";
+import { IExecutableCommand } from "../interfaces/ICommand";
 import { Logger } from "../logging/Logger";
 import { CommandInput } from "../types/CommandInput";
 import { SubjectNotSpecifiedError } from "../errors/SubjectNotSpecifiedError";
 import { BaseCommand } from "./BaseCommand";
 
-export class CreateCommand extends BaseCommand implements ICommand{
+export class CreateCommand extends BaseCommand implements IExecutableCommand{
     public async execute({ parameters: [subjectName, environmentName, environment]}: CommandInput): Promise<void> {
         if(!subjectName){
             throw new SubjectNotSpecifiedError()

@@ -1,12 +1,12 @@
 import Table, { HorizontalTableRow } from "cli-table3";
-import { ICommand } from "../interfaces/ICommand";
+import { IExecutableCommand } from "../interfaces/ICommand";
 import { Logger } from "../logging/Logger";
 import { CommandInput } from "../types/CommandInput";
 import { BaseCommand } from "./BaseCommand";
 import { TextToColorConverter } from "../helpers/TextToColorConverter";
 import chalk from "chalk";
 
-export class TableCommand extends BaseCommand implements ICommand{
+export class TableCommand extends BaseCommand implements IExecutableCommand{
     public async execute({ parameters }: CommandInput): Promise<void> {
 
         const subjects = await this.handleCommandTargets(parameters)

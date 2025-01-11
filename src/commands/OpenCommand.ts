@@ -1,9 +1,9 @@
 import { SubjectNotSpecifiedError } from "../errors/SubjectNotSpecifiedError";
-import { ICommand } from "../interfaces/ICommand";
+import { IExecutableCommand } from "../interfaces/ICommand";
 import { CommandInput } from "../types/CommandInput";
 import { BaseCommand } from "./BaseCommand";
 
-export class OpenCommand extends BaseCommand implements ICommand{
+export class OpenCommand extends BaseCommand implements IExecutableCommand{
     public async execute({ parameters: [subjectName, environmentName] }: CommandInput){
         if(!subjectName){
             throw new SubjectNotSpecifiedError()

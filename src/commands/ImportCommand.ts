@@ -1,6 +1,6 @@
 import prompt from "prompt";
 import { ExportedFileNotFoundError } from "../errors/ExportedFileNotFoundError";
-import { ICommand } from "../interfaces/ICommand";
+import { IExecutableCommand } from "../interfaces/ICommand";
 import { Logger } from "../logging/Logger";
 import { CommandInput } from "../types/CommandInput";
 import { BaseCommand } from "./BaseCommand";
@@ -9,7 +9,7 @@ import fs from 'fs-extra'
 import { ExportedFileDecryptionError } from "../errors/ExportedFileDecryptionError";
 import { WenviExportableContent } from "../types/WenviExportableContent";
 
-export class ImportCommand extends BaseCommand implements ICommand{
+export class ImportCommand extends BaseCommand implements IExecutableCommand{
     public async execute({ parameters: [path = process.cwd() + '/.wenvi'] }: CommandInput): Promise<void> {
         const repository = this.getRepository()
 

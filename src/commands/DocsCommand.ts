@@ -1,9 +1,9 @@
 import PackageJsonProvider from "../core/PackageJsonProvider";
-import { ICommand } from "../interfaces/ICommand";
+import { IExecutableCommand } from "../interfaces/ICommand";
 import open from 'open'
 import { Logger } from "../logging/Logger";
 
-export class DocsCommand implements ICommand{
+export class DocsCommand implements IExecutableCommand{
     constructor(private packageProvider = new PackageJsonProvider()){}
 
     public async execute(): Promise<void> {

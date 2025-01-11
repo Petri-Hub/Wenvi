@@ -1,13 +1,13 @@
 import { EnvironmentNotSpecifiedError } from "../errors/EnvironmentNotSpecifiedError";
 import { SubjectNotSpecifiedError } from "../errors/SubjectNotSpecifiedError";
-import { ICommand } from "../interfaces/ICommand";
+import { IExecutableCommand } from "../interfaces/ICommand";
 import { Logger } from "../logging/Logger";
 import { CommandInput } from "../types/CommandInput";
 import { BaseCommand } from "./BaseCommand";
 import chalk from "chalk";
 import fs from 'fs'
 
-export class UseCommand extends BaseCommand implements ICommand{
+export class UseCommand extends BaseCommand implements IExecutableCommand{
     public async execute({ parameters: [subjectName, environmentName] }: CommandInput): Promise<void>{
         if(!subjectName){
             throw new SubjectNotSpecifiedError()

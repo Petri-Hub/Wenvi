@@ -1,11 +1,11 @@
-import { ICommand } from "../interfaces/ICommand";
+import { IExecutableCommand } from "../interfaces/ICommand";
 import { Logger } from "../logging/Logger";
 import { CommandInput } from "../types/CommandInput";
 import chalk from 'chalk'
 import { TextToColorConverter } from '../helpers/TextToColorConverter'
 import { BaseCommand } from "./BaseCommand";
 
-export class ListCommand extends BaseCommand implements ICommand {
+export class ListCommand extends BaseCommand implements IExecutableCommand {
     public async execute({ parameters }: CommandInput): Promise<void> {
         const repository = this.getRepository()
         const subjects = await this.handleCommandTargets(parameters)
