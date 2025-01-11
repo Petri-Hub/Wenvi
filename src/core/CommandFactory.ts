@@ -1,5 +1,6 @@
 import { CopyCommand } from "../commands/CopyCommand";
 import { CreateCommand } from "../commands/CreateCommand";
+import { CurrentCommand } from "../commands/CurrentCommand";
 import { DeleteCommand } from "../commands/DeleteCommand";
 import { DocsCommand } from "../commands/DocsCommand";
 import { ExampleCommand } from "../commands/ExampleCommand";
@@ -24,6 +25,7 @@ export class CommandFactory{
     public static COMMAND_KEYS = {
         INIT: 'init',
         USE: 'use',
+        CURRENT: 'current',
         OPEN: 'open',
         COPY: 'copy',
         VIEW: 'view',
@@ -45,6 +47,8 @@ export class CommandFactory{
         switch(commandName){
             case CommandFactory.COMMAND_KEYS.USE:
                 return new UseCommand(payload)
+            case CommandFactory.COMMAND_KEYS.CURRENT:
+                return new CurrentCommand(payload)
             case CommandFactory.COMMAND_KEYS.INIT:
                 return new InitCommand(payload)
             case CommandFactory.COMMAND_KEYS.OPEN:
