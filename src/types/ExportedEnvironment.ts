@@ -1,5 +1,5 @@
 export type ExportedEnvironment = {
-    subject: string,
-    environment: string,
-    content: string
+   subject: string
+   environment: string
+   content: string
 }

@@ -1,25 +1,25 @@
-import { BaseErrorData } from "../types/BaseErrorData";
+import { BaseErrorData } from '../types/BaseErrorData'
 
 export abstract class BaseError {
-    private code: number
-    private message: string
-    private error: unknown
+   private code: number
+   private message: string
+   private error: unknown
 
-    constructor({ code, message, error }: BaseErrorData) {
-        this.code = code
-        this.message = message
-        this.error = error
-    }
+   constructor({ code, message, error }: BaseErrorData) {
+      this.code = code
+      this.message = message
+      this.error = error
+   }
 
-    public getCode(): number {
-        return this.code
-    }
+   public getCode(): number {
+      return this.code
+   }
 
-    public getMessage(): string {
-        return this.message
-    }
+   public getMessage(): string {
+      return this.message
+   }
 
-    public getError(): unknown {
-        return this.error
-    }
+   public getError(): unknown {
+      return this.error
+   }
 }

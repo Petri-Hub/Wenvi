@@ -1,5 +1,5 @@
-import { IRepository } from "../interfaces/IRepository"
+import { IRepository } from '../interfaces/IRepository'
 
 export type CommandDependecies = {
-    repository: IRepository
+   repository: IRepository
 }

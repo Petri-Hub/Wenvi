@@ -1,30 +1,39 @@
-import chalk from "chalk";
-import { ICommand } from "../interfaces/ICommand";
-import { Logger } from "../logging/Logger";
-import { CommandInput } from "../types/CommandInput";
-import { SubjectNotSpecifiedError } from "../errors/SubjectNotSpecifiedError";
-import { EnvironmentNotSpecifiedError } from "../errors/EnvironmentNotSpecifiedError";
-import { BaseCommand } from "./BaseCommand";
+import chalk from 'chalk'
+import { IExecutableCommand } from '../interfaces/ICommand'
+import { Logger } from '../logging/Logger'
+import { CommandInput } from '../types/CommandInput'
+import { SubjectNotSpecifiedError } from '../errors/SubjectNotSpecifiedError'
+import { EnvironmentNotSpecifiedError } from '../errors/EnvironmentNotSpecifiedError'
+import { BaseCommand } from './BaseCommand'
 
-export class ViewCommand extends BaseCommand implements ICommand{
-    public async execute({ parameters: [subjectName, environmentName] }: CommandInput): Promise<void> {
-        if(!subjectName){
-            throw new SubjectNotSpecifiedError()
-        }
-        if(!environmentName){
-            throw new EnvironmentNotSpecifiedError()
-        }
-        
-        const repository = this.getRepository()
-        const variables = await repository.getEnvironment(subjectName, environmentName)
-        const isEmpty = variables.replace(/[^A-Za-z0-9=]/gi, '').length === 0
+export class ViewCommand extends BaseCommand implements IExecutableCommand {
+   public async execute({
+      parameters: [subjectName, environmentName]
+   }: CommandInput): Promise<void> {
+      if (!subjectName) {
+         throw new SubjectNotSpecifiedError()
+      }
+      if (!environmentName) {
+         throw new EnvironmentNotSpecifiedError()
+      }
 
-        if (isEmpty) {
-            Logger.log(`Environment ${chalk.bold.underline(environmentName)} of subject ${chalk.bold.underline(subjectName)} is empty`)
-            return
-        }
+      const repository = this.getRepository()
+      const variables = await repository.getEnvironment(
+         subjectName,
+         environmentName
+      )
+      const isEmpty = variables.replace(/[^A-Za-z0-9=]/gi, '').length === 0
 
-        Logger.log(`Seeing environment ${chalk.bold.underline(environmentName)} for subject ${chalk.bold.underline(subjectName)}:\n`)
-        console.log(variables)
-    }
+      if (isEmpty) {
+         Logger.log(
+            `Environment ${chalk.bold.underline(environmentName)} of subject ${chalk.bold.underline(subjectName)} is empty`
+         )
+         return
+      }
+
+      Logger.log(
+         `Seeing environment ${chalk.bold.underline(environmentName)} for subject ${chalk.bold.underline(subjectName)}:\n`
+      )
+      console.log(variables)
+   }
 }

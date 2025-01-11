@@ -1,5 +1,5 @@
-import { CommandInput } from "../types/CommandInput";
+import { CommandInput } from '../types/CommandInput'
 
-export interface ICommand {
-    execute(input: CommandInput): Promise<void>
+export interface IExecutableCommand {
+   execute(input: CommandInput): Promise<void>
 }

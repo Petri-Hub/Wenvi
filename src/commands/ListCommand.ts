@@ -1,57 +1,57 @@
-import { ICommand } from "../interfaces/ICommand";
-import { Logger } from "../logging/Logger";
-import { CommandInput } from "../types/CommandInput";
 import chalk from 'chalk'
+import { IExecutableCommand } from '../interfaces/ICommand'
+import { Logger } from '../logging/Logger'
+import { CommandInput } from '../types/CommandInput'
 import { TextToColorConverter } from '../helpers/TextToColorConverter'
-import { BaseCommand } from "./BaseCommand";
+import { BaseCommand } from './BaseCommand'
 
-export class ListCommand extends BaseCommand implements ICommand {
-    public async execute({ parameters }: CommandInput): Promise<void> {
-        const repository = this.getRepository()
-        const subjects = await this.handleCommandTargets(parameters)
-        const hasNoSubjects = subjects.length === 0
-        
-        if(hasNoSubjects){
-            Logger.log('No environments were found.')
-            return
-        }
+export class ListCommand extends BaseCommand implements IExecutableCommand {
+   public async execute({ parameters }: CommandInput): Promise<void> {
+      const repository = this.getRepository()
+      const subjects = await this.handleCommandTargets(parameters)
+      const hasNoSubjects = subjects.length === 0
 
-        Logger.log('Configured environments:\n')
+      if (hasNoSubjects) {
+         Logger.log('No environments were found.')
+         return
+      }
 
-        for(const subjectName of subjects){
-            const subjectColor = TextToColorConverter.convert(subjectName)
-            const subjectChalked = chalk.hex(subjectColor).bold(`[${subjectName}]`)
+      Logger.log('Configured environments:\n')
 
-            console.log(subjectChalked)
+      for (const subjectName of subjects) {
+         const subjectColor = TextToColorConverter.convert(subjectName)
+         const subjectChalked = chalk.hex(subjectColor).bold(`[${subjectName}]`)
 
-            const environments = await repository.getEnvironments(subjectName)
-            const subjectIsEmpty = environments.length === 0
+         console.log(subjectChalked)
 
-            if(subjectIsEmpty){
-                console.log('  - No environments found')
-            }
+         const environments = await repository.getEnvironments(subjectName)
+         const subjectIsEmpty = environments.length === 0
 
-            for(const environmentName of environments){
-                console.log(`  - ${environmentName}`)
-            }
-            
-            console.log()
-        }
-    }
+         if (subjectIsEmpty) {
+            console.log('  - No environments found')
+         }
 
-    private async handleCommandTargets(parameters: string[]): Promise<string[]> { 
-        const repository = this.getRepository()
-        
-        if(!parameters.length){
-            return await repository.getSubjects()
-        }
+         for (const environmentName of environments) {
+            console.log(`  - ${environmentName}`)
+         }
 
-        const subjects = await repository.getSubjects()
-        
-        const targets = subjects.filter(subjectName => {
-            return parameters.includes(subjectName)
-        })
+         console.log()
+      }
+   }
 
-        return targets
-    }
+   private async handleCommandTargets(parameters: string[]): Promise<string[]> {
+      const repository = this.getRepository()
+
+      if (!parameters.length) {
+         return await repository.getSubjects()
+      }
+
+      const subjects = await repository.getSubjects()
+
+      const targets = subjects.filter((subjectName) => {
+         return parameters.includes(subjectName)
+      })
+
+      return targets
+   }
 }
