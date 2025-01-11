@@ -9,6 +9,7 @@ import { ListCommand } from "../commands/ListCommand";
 import { OpenCommand } from "../commands/OpenCommand";
 import { PingCommand } from "../commands/PingCommand";
 import { TableCommand } from "../commands/TableCommand";
+import { UpdateCommad } from "../commands/UpdateCommand";
 import { UpgradeCommand } from "../commands/UpgradeCommand";
 import { UseCommand } from "../commands/UseCommand";
 import { ValidateCommand } from "../commands/ValidateCommand";
@@ -27,6 +28,7 @@ export class CommandFactory{
         COPY: 'copy',
         VIEW: 'view',
         CREATE: 'create',
+        UPDATE: 'update',
         EXAMPLE: 'example',
         TABLE: 'table',
         DELETE: 'delete',
@@ -53,6 +55,8 @@ export class CommandFactory{
                 return new ViewCommand(payload)
             case CommandFactory.COMMAND_KEYS.CREATE:
                 return new CreateCommand(payload)
+            case CommandFactory.COMMAND_KEYS.UPDATE:
+                return new UpdateCommad(payload)
             case CommandFactory.COMMAND_KEYS.EXAMPLE:
                 return new ExampleCommand(payload)
             case CommandFactory.COMMAND_KEYS.TABLE:
