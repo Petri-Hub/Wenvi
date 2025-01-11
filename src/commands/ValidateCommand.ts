@@ -1,10 +1,10 @@
 import Table from 'cli-table3'
+import chalk from 'chalk';
 import { HorizontalTableRow } from "cli-table3";
 import { IExecutableCommand } from "../interfaces/ICommand";
 import { BaseCommand } from "./BaseCommand";
 import { EnvironmentValidation } from "../types/EnvironmentValidation";
 import { Logger } from "../logging/Logger";
-import chalk from 'chalk';
 import { TextToColorConverter } from '../helpers/TextToColorConverter';
 
 export class ValidateCommand extends BaseCommand implements IExecutableCommand{    

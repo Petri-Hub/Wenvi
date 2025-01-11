@@ -1,7 +1,7 @@
+import chalk from 'chalk'
 import { IExecutableCommand } from "../interfaces/ICommand";
 import { Logger } from "../logging/Logger";
 import { CommandInput } from "../types/CommandInput";
-import chalk from 'chalk'
 import { TextToColorConverter } from '../helpers/TextToColorConverter'
 import { BaseCommand } from "./BaseCommand";
 

@@ -1,4 +1,6 @@
 import open from "open";
+import fs from 'fs-extra'
+import path from 'path'
 import { EnvironmentAlreadyCreatedError } from "../errors/EnvironmentAlreadyCreatedError";
 import { EnvironmentNotFoundError } from "../errors/EnvironmentNotFoundError";
 import { ExampleAlreadyConfiguredError } from "../errors/ExampleAlreadyConfiguredError";
@@ -6,12 +8,9 @@ import { ExampleNotFoundError } from "../errors/ExampleNotFoundError";
 import { SubjectAlreadyCreatedError } from "../errors/SubjectAlreadyCreatedError";
 import { SubjectNotFoundError } from "../errors/SubjectNotFoundError";
 import { IRepository } from "../interfaces/IRepository";
-import fs from 'fs-extra'
-import path from 'path'
 import { RepositoryAlreadyCreated } from "../errors/RepositoryAlreadyCreated";
 import { VariableNotFoundError } from "../errors/VariableNotFoundError";
 import { WenviExportableContent } from "../types/WenviExportableContent";
-import { ExportedEnvironment } from "../types/ExportedEnvironment";
 
 export class LocalEnvironmentRepository implements IRepository{
     constructor(

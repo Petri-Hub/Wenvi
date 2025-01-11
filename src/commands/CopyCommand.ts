@@ -1,10 +1,10 @@
 import chalk from "chalk";
+import clipboard from "clipboardy";
 import { EnvironmentNotSpecifiedError } from "../errors/EnvironmentNotSpecifiedError";
 import { SubjectNotSpecifiedError } from "../errors/SubjectNotSpecifiedError";
 import { IExecutableCommand } from "../interfaces/ICommand";
 import { Logger } from "../logging/Logger";
 import { CommandInput } from "../types/CommandInput";
-import clipboard from "clipboardy";
 import { BaseCommand } from "./BaseCommand";
 
 export class CopyCommand extends BaseCommand implements IExecutableCommand{
@@ -12,7 +12,6 @@ export class CopyCommand extends BaseCommand implements IExecutableCommand{
         if(!subjectName){
             throw new SubjectNotSpecifiedError()
         }
-
         if(!environmentName){
             throw new EnvironmentNotSpecifiedError()
         }

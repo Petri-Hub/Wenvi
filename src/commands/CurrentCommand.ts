@@ -1,8 +1,8 @@
+import fs from 'fs-extra'
 import { BaseCommand } from "./BaseCommand";
 import { IExecutableCommand } from "../interfaces/ICommand";
 import { Logger } from "../logging/Logger";
 import { CurrentEnvironmentNotSetError } from "../errors/CurrentEnvironmentNotSetError";
-import fs from 'fs-extra'
 
 export class CurrentCommand extends BaseCommand implements IExecutableCommand{
     public async execute(): Promise<void> {

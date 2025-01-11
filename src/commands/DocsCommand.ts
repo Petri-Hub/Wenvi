@@ -1,6 +1,6 @@
 import PackageJsonProvider from "../core/PackageJsonProvider";
-import { IExecutableCommand } from "../interfaces/ICommand";
 import open from 'open'
+import { IExecutableCommand } from "../interfaces/ICommand";
 import { Logger } from "../logging/Logger";
 
 export class DocsCommand implements IExecutableCommand{

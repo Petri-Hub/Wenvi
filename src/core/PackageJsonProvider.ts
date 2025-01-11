@@ -1,5 +1,5 @@
-import { PackageJson } from "../types/PackageJson";
 import fs from 'fs'
+import { PackageJson } from "../types/PackageJson";
 
 export default class PackageJsonProvider {
     public getVersion(): string {

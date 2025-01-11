@@ -1,12 +1,12 @@
+import CryptoJS from 'crypto-js'
+import fs from 'fs-extra'
+import path from 'path'
+import prompt from 'prompt'
 import { IExecutableCommand } from "../interfaces/ICommand";
 import { Logger } from "../logging/Logger";
 import { ExportedEnvironment } from "../types/ExportedEnvironment";
 import { WenviExportableContent as WenviExportableData } from "../types/WenviExportableContent";
 import { BaseCommand } from "./BaseCommand";
-import CryptoJS from 'crypto-js'
-import fs from 'fs-extra'
-import path from 'path'
-import prompt from 'prompt'
 
 export class ExportCommand extends BaseCommand implements IExecutableCommand{
     public async execute(): Promise<void> {
