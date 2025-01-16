@@ -13,8 +13,9 @@
 <h2>Table of Contents</h2>
 
 - [About](#About)
-- [Features](#Features)
 - [Glossary](#Glossary)
+- [Features](#Features)
+- [Showcase](#Showcase)
 - [Installation](#Installation)
 - [Quick Start](#QuickStart)
 - [Commands](#Commands)
@@ -40,6 +41,11 @@ Wenvi is a Node.js CLI tool written in TypeScript designed to manage `.env` file
 - Display subjects and environments in a friendly table format.
 - Quickly switch your current environment.
 - Export and import subjects and environments.
+
+<br>
+<h2 id="Showcase">Showcase</h2>
+
+[INSERT_IMAGES_HERE]
 
 <br>
 <h2 id="Installation">Installation</h2>
