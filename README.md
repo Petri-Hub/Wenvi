@@ -16,7 +16,6 @@
 - [Glossary](#Glossary)
 - [Installation](#Installation)
 - [Commands](#Commands)
-- [Use Cases](#UseCases)
 - [License](#License)
 
 <h2 id="About">About</h2>
@@ -46,30 +45,206 @@ npm install -g wenvi
 
 <h2 id="Commands">Commands</h2>
 
-| Command  | Descritiption                                                                             | Format                                                          |
-|----------|-------------------------------------------------------------------------------------------|-----------------------------------------------------------------|
-| **init**       | Creates the repository folder where the subjects and environments are going to be stored. | `wenvi init`                                                    |
-| **create**     | Creates a subject or environment.                                                         | `wenvi create <subject>`<br>`wenvi create <subject> <environment>`<br>`wenvi create <subject> <environment> "SECRET=123..."` |
-| **list**       | Lists all the registered subjects its environments.                                       | `wenvi list`<br>`wenvi list <subject-1> <subject-2> ...`           |
-| **use**        | Switch your curent .env file with the selected environment.                               | `wenvi use <subject> <environment>`                             |
-| **current**    | See the environment you're currently using.                                               | `wenvi current`                            |
-| **copy**       | Copy the variables of a environment file to your clipboard.                               | `wenvi copy <subject> <environment>`                             |
-| **view**       | Outputs an environment variables into the console.                                        | `wenvi view <subject> <environment>`                            |
-| **open**       | Opens an environment with your default text editor.                                       | `wenvi open <subject> <environment>`                            |
-| **update**     | Updates an environment with new variables.                                                | `wenvi update <subject> <environment> "SECRET=123..."`                            |
-| **update-key** | Updates an environment key with a new value.                                              | `wenvi update-key <subject> <environment> <key> <value>`                            |
-| **delete**     | Deletes a subject or environment.                                                         | `wenvi delete <subject>`<br>`wenvi delete <subject> <environment>` |
-| **get-key**    | Returns the value of a key in a environment.                                              | `wenvi get-key <subject> <environment> <key>` |
-| **delete-key** | Deletes a key of and environment.                                                         | `wenvi delete-key <subject> <environment> <key>` |
-| **table**      | Shows a table that compares which subject has which environment.                          | `wenvi table`<br>`wenvi table <subject-1> <subject-2> ...`         |
-| **example**    | Setups the .env.example file that allows environments validation.                         | `wenvi example`                                                 |
-| **export**     | Export all your subjects and environments into a local file.                              | `wenvi export`                                                 |
-| **import**     | Import a exported Wenvi configuration.                                                    | `wenvi import`                                                 |
-| **validate**   | Validates all your environments following the .env.example file structure.                | `wenvi validate`                                                |
-| **version**    | Outputs the current Wenvi version installed.                                              | `wenvi version`                                                 |
-| **upgrade**    | Upgrades the Wenvi CLI to the latest version.                                             | `wenvi upgrade`                                                 |
-| **docs**       | Open the Wenvi in your browser.                                                           | `wenvi docs`                                                    |
-| **help**       | Outputs the available Wenvi commands.                                                     | `wenvi docs`                                                    |
+<h3 id="command_init">init</h3>
+
+Creates the repository folder where the subjects and environments are going to be stored.
+
+- Usage: `wenvi init`
+
+---
+
+<h3 id="command_create">create</h3>
+
+Creates a subject or environment.
+
+- Usage:
+  - `wenvi create <subject>`
+  - `wenvi create <subject> <environment>`
+  - `wenvi create <subject> <environment> <variables>"`
+- Example: `wenvi create company-a production "SECRET=123..."`
+
+---
+
+<h3 id="command_list">list</h3>
+
+Lists all the registered subjects and their environments.
+
+- Usage: 
+  - `wenvi list`
+  - `wenvi list <subject-1> <subject-2> ...`
+- Example:
+  - `wenvi list`
+  - `wenvi list company-a company-b`
+
+---
+
+<h3 id="command_use">use</h3>
+
+Switch your current .env file with the selected environment.
+
+- Usage: `wenvi use <subject> <environment>`
+- Example: `wenvi use company-a production`
+
+---
+
+<h3 id="command_current">current</h3>
+
+See the environment you're currently using.
+
+- Usage: `wenvi current`
+
+---
+
+<h3 id="command_copy">copy</h3>
+
+Copy the variables of an environment file to your clipboard.
+
+- Usage: `wenvi copy <subject> <environment>`
+- Example: `wenvi copy company-a production`
+
+---
+
+<h3 id="command_view">view</h3>
+
+Outputs environment variables into the console.
+
+- Usage: `wenvi view <subject> <environment>`
+- Example: `wenvi view company-a production`
+
+---
+
+<h3 id="command_open">open</h3>
+
+Opens an environment with your default text editor.
+
+- Usage: `wenvi open <subject> <environment>`
+- Example: `wenvi open company-a production`
+
+---
+
+<h3 id="command_update">update</h3>
+
+Updates an environment with new variables.
+
+- Usage: `wenvi update <subject> <environment> <variables>`
+- Example: `wenvi update company-a dev "SECRET=123..."`
+
+---
+
+<h3 id="command_update-key">update-key</h3>
+
+Updates an environment key with a new value.
+
+- Usage: `wenvi update-key <subject> <environment> <key> <value>`
+- Example: `wenvi update-key company-a dev SECRET 123`
+
+---
+
+<h3 id="command_delete">delete</h3>
+
+Deletes a subject or environment.
+
+- Usage: 
+  - `wenvi delete <subject>`
+  - `wenvi delete <subject> <environment>`
+- Example: 
+  - `wenvi delete company-a`
+  - `wenvi delete company-a production`
+
+---
+
+<h3 id="command_get-key">get-key</h3>
+
+Returns the value of a key in an environment.
+
+- Usage: `wenvi get-key <subject> <environment> <key>`
+- Example: `wenvi get-key company-a production SECRET`
+
+---
+
+<h3 id="command_delete-key">delete-key</h3>
+
+Deletes a key of an environment.
+
+- Usage: `wenvi delete-key <subject> <environment> <key>`
+- Example: `wenvi delete-key company-a production SECRET`
+
+---
+
+<h3 id="command_table">table</h3>
+
+Shows a table that compares which subject has which environment.
+
+- Usage: 
+  - `wenvi table`
+  - `wenvi table <subject-1> <subject-2> ...`
+- Example: 
+  - `wenvi table`
+  - `wenvi table company-a company-b`
+
+---
+
+<h3 id="command_example">example</h3>
+
+Setups the .env.example file that allows environments validation.
+
+- Usage: `wenvi example`
+
+---
+
+<h3 id="command_export">export</h3>
+
+Export all your subjects and environments into a local file.
+
+- Usage: `wenvi export`
+
+---
+
+<h3 id="command_import">import</h3>
+
+Import an exported Wenvi configuration.
+
+- Usage: `wenvi import`
+
+---
+
+<h3 id="command_validate">validate</h3>
+
+Validates all your environments following the .env.example file structure.
+
+- Usage: `wenvi validate`
+
+---
+
+<h3 id="command_version">version</h3>
+
+Outputs the current Wenvi version installed.
+
+- Usage: `wenvi version`
+
+---
+
+<h3 id="command_upgrade">upgrade</h3>
+
+Upgrades the Wenvi CLI to the latest version.
+
+- Usage: `wenvi upgrade`
+
+---
+
+<h3 id="command_docs">docs</h3>
+
+Open the Wenvi documentation in your browser.
+
+- Usage: `wenvi docs`
+
+---
+
+<h3 id="command_help">help</h3>
+
+Outputs the available Wenvi commands.
+
+- Usage: `wenvi help`
 
 <h2 id="License">License</h2>
 
