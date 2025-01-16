@@ -88,7 +88,7 @@ wenvi use company-a development
 
 Creates the repository folder where the subjects and environments are going to be stored.
 
-- Usage: 
+- **Usage**: 
   - `wenvi init`
 
 <br>
@@ -96,11 +96,11 @@ Creates the repository folder where the subjects and environments are going to b
 
 Creates a subject or environment.
 
-- Usage:
+- **Usage**:
   - `wenvi create <subject>`
   - `wenvi create <subject> <environment>`
   - `wenvi create <subject> <environment> <variables>"`
-- Example: 
+- **Example**: 
   - `wenvi create company-a`
   - `wenvi create company-a development`
   - `wenvi create company-a development "SECRET=123..."`
@@ -110,10 +110,10 @@ Creates a subject or environment.
 
 Lists all the registered subjects and their environments.
 
-- Usage: 
+- **Usage**: 
   - `wenvi list`
   - `wenvi list <subject-1> <subject-2> ...`
-- Example:
+- **Example**:
   - `wenvi list`
   - `wenvi list company-a company-b`
 
@@ -122,9 +122,9 @@ Lists all the registered subjects and their environments.
 
 Switch your current .env file with the selected environment.
 
-- Usage: 
+- **Usage**: 
   - `wenvi use <subject> <environment>`
-- Example: 
+- **Example**: 
   - `wenvi use company-a production`
 
 <br>
@@ -132,7 +132,7 @@ Switch your current .env file with the selected environment.
 
 See the environment you're currently using.
 
-- Usage: 
+- **Usage**: 
   - `wenvi current`
 
 <br>
@@ -140,9 +140,9 @@ See the environment you're currently using.
 
 Copy the variables of an environment file to your clipboard.
 
-- Usage: 
+- **Usage**: 
   - `wenvi copy <subject> <environment>`
-- Example: 
+- **Example**: 
   - `wenvi copy company-a production`
 
 <br>
@@ -150,9 +150,9 @@ Copy the variables of an environment file to your clipboard.
 
 Outputs environment variables into the console.
 
-- Usage: 
+- **Usage**: 
   - `wenvi view <subject> <environment>`
-- Example: 
+- **Example**: 
   - `wenvi view company-a production`
 
 <br>
@@ -160,9 +160,9 @@ Outputs environment variables into the console.
 
 Opens an environment with your default text editor.
 
-- Usage: 
+- **Usage**: 
   - `wenvi open <subject> <environment>`
-- Example: 
+- **Example**: 
   - `wenvi open company-a production`
 
 <br>
@@ -170,9 +170,9 @@ Opens an environment with your default text editor.
 
 Updates an environment with new variables.
 
-- Usage: 
+- **Usage**: 
   - `wenvi update <subject> <environment> <variables>`
-- Example: 
+- **Example**: 
   - `wenvi update company-a dev "SECRET=123..."`
 
 <br>
@@ -180,9 +180,9 @@ Updates an environment with new variables.
 
 Updates an environment key with a new value.
 
-- Usage: 
+- **Usage**: 
   - `wenvi update-key <subject> <environment> <key> <value>`
-- Example: 
+- **Example**: 
   - `wenvi update-key company-a dev SECRET 123`
 
 <br>
@@ -190,10 +190,10 @@ Updates an environment key with a new value.
 
 Deletes a subject or environment.
 
-- Usage: 
+- **Usage**: 
   - `wenvi delete <subject>`
   - `wenvi delete <subject> <environment>`
-- Example: 
+- **Example**: 
   - `wenvi delete company-a`
   - `wenvi delete company-a production`
 
@@ -202,9 +202,9 @@ Deletes a subject or environment.
 
 Returns the value of a key in an environment.
 
-- Usage: 
+- **Usage**: 
   - `wenvi get-key <subject> <environment> <key>`
-- Example: 
+- **Example**: 
   - `wenvi get-key company-a production SECRET`
 
 <br>
@@ -212,9 +212,9 @@ Returns the value of a key in an environment.
 
 Deletes a key of an environment.
 
-- Usage: 
+- **Usage**: 
   - `wenvi delete-key <subject> <environment> <key>`
-- Example: 
+- **Example**: 
   - `wenvi delete-key company-a production SECRET`
 
 <br>
@@ -222,10 +222,10 @@ Deletes a key of an environment.
 
 Shows a table that compares which subject has which environment.
 
-- Usage: 
+- **Usage**: 
   - `wenvi table`
   - `wenvi table <subject-1> <subject-2> ...`
-- Example: 
+- **Example**: 
   - `wenvi table`
   - `wenvi table company-a company-b`
 
@@ -234,7 +234,7 @@ Shows a table that compares which subject has which environment.
 
 Setups the .env.example file that allows environments validation.
 
-- Usage: 
+- **Usage**: 
   - `wenvi example`
 
 <br>
@@ -242,7 +242,7 @@ Setups the .env.example file that allows environments validation.
 
 Export all your subjects and environments into a local file.
 
-- Usage: 
+- **Usage**: 
   - `wenvi export`
 
 <br>
@@ -250,7 +250,7 @@ Export all your subjects and environments into a local file.
 
 Import an exported Wenvi configuration.
 
-- Usage: 
+- **Usage**: 
   - `wenvi import`
 
 <br>
@@ -258,7 +258,7 @@ Import an exported Wenvi configuration.
 
 Validates all your environments following the .env.example file structure.
 
-- Usage: 
+- **Usage**: 
   - `wenvi validate`
 
 <br>
@@ -266,7 +266,7 @@ Validates all your environments following the .env.example file structure.
 
 Outputs the current Wenvi version installed.
 
-- Usage: 
+- **Usage**: 
   - `wenvi version`
 
 <br>
@@ -274,7 +274,7 @@ Outputs the current Wenvi version installed.
 
 Upgrades the Wenvi CLI to the latest version.
 
-- Usage: 
+- **Usage**: 
   - `wenvi upgrade`
 
 <br>
@@ -282,7 +282,7 @@ Upgrades the Wenvi CLI to the latest version.
 
 Open the Wenvi documentation in your browser.
 
-- Usage: 
+- **Usage**: 
   - `wenvi docs`
 
 <br>
@@ -290,7 +290,7 @@ Open the Wenvi documentation in your browser.
 
 Outputs the available Wenvi commands.
 
-- Usage: 
+- **Usage**: 
   - `wenvi help`
 
 <br>
