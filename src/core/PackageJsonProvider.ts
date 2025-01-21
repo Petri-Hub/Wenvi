@@ -1,4 +1,5 @@
 import fs from 'fs'
+import path from 'path'
 import { PackageJson } from '../types/PackageJson'
 
 export default class PackageJsonProvider {
@@ -11,6 +12,6 @@ export default class PackageJsonProvider {
    }
 
    private getJson(): PackageJson {
-      return JSON.parse(fs.readFileSync('package.json', 'utf8'))
+      return JSON.parse(fs.readFileSync(path.join(__dirname, '../../package.json'), 'utf8'))
    }
 }
