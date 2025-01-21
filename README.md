@@ -30,7 +30,7 @@ Wenvi is a Node.js CLI tool written in TypeScript designed to manage `.env` file
 <h2 id="Glossary">Glossary</h2>
 
 - **Subject:** The entity that requires its own set of environments, in most cases, a company you're working for.
-- **Environment:** A collection of variables that typically represents a stage of deployment such as development or production.
+- **Environment:** A collection of variables that represents a stage of deployment such as development or production.
 
 <br>
 <h2 id="Features">Features</h2>
@@ -45,7 +45,7 @@ Wenvi is a Node.js CLI tool written in TypeScript designed to manage `.env` file
 <br>
 <h2 id="Showcase">Showcase</h2>
 
-[INSERT_IMAGES_HERE]
+Curious in how to use it? Check out this [introduction post about Wenvi!]()
 
 <br>
 <h2 id="Installation">Installation</h2>
