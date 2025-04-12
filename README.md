@@ -45,7 +45,7 @@ Wenvi is a Node.js CLI tool written in TypeScript designed to manage `.env` file
 <br>
 <h2 id="Showcase">Showcase</h2>
 
-Curious in how to use it? Check out this [introduction post about Wenvi!]()
+Curious in how to use it? Check out this [introduction post about Wenvi!](https://www.linkedin.com/posts/fernando-petri_projeto-de-cli-wenvi-activity-7287476535467384833-asng?utm_source=share&utm_medium=member_desktop&rcm=ACoAADbpxVABbAYorMD3xJtE9decNNMX0IIGso4)
 
 <br>
 <h2 id="Installation">Installation</h2>
